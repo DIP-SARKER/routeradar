@@ -117,7 +117,8 @@ class _Schedule extends State<Schedule> {
               itemCount: schedule.length,
               itemBuilder: (context, index) {
                 return Card(
-                  margin: EdgeInsets.only(left: 20, right: 20, top: 25),
+                  margin:
+                      EdgeInsets.only(left: 20, right: 20, top: 12, bottom: 13),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
                   ),
