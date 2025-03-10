@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:routeradar/lost_and_found.dart';
 import 'package:routeradar/routes_and_fare.dart';
 
 class Schedule extends StatefulWidget {
@@ -174,7 +175,12 @@ class _Schedule extends State<Schedule> {
               leading: Icon(Icons.find_in_page), // Lost & Found icon
               title: Text("Lost & Found"),
               trailing: Icon(Icons.chevron_right),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LostAndFound()),
+                );
+              },
             ),
             ListTile(
               leading: Icon(
