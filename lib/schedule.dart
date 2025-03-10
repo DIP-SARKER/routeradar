@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:routeradar/lost_and_found.dart';
-import 'package:routeradar/routes_and_fare.dart';
+import 'package:routeradar/menu.dart';
 
 class Schedule extends StatefulWidget {
   const Schedule({super.key});
@@ -12,6 +11,20 @@ class Schedule extends StatefulWidget {
 
 class _Schedule extends State<Schedule> {
   int selectedDateIndex = 0;
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+      if (index == 3) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => MenuPage()),
+        );
+      }
+    });
+  }
+
   final List<Map<String, String>> schedule = [
     {
       "time": "06:30 AM",
@@ -102,97 +115,12 @@ class _Schedule extends State<Schedule> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            SizedBox(
-              height: 150,
-              child: DrawerHeader(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Icon(
-                      LineAwesome.shuttle_van_solid,
-                    ),
-                    IconButton(
-                      icon: Icon(HeroIcons.x_mark),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            ListTile(
-              leading: Icon(HeroIcons.home), // Home icon
-              title: Text("Home"),
-              trailing: Icon(Icons.chevron_right),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: Icon(Iconsax.location_bold), // Bus tracking icon
-              title: Text("Live Tracking"),
-              trailing: Icon(Icons.chevron_right),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: Icon(Icons.local_taxi), // Ride request icon
-              title: Text("Request a Ride"),
-              trailing: Icon(Icons.chevron_right),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: Icon(LineAwesome.map_marked_alt_solid), // Routes icon
-              title: Text("Routes & Fares"),
-              trailing: Icon(Icons.chevron_right),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => RoutesAndFares()),
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(
-                FontAwesome.user_tie_solid,
-                size: 22,
-              ), // Profile icon
-              title: Text("Profile & Settings"),
-              trailing: Icon(Icons.chevron_right),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: Icon(
-                HeroIcons.phone_arrow_up_right,
-                size: 22,
-              ), // Emergency contact icon
-              title: Text("Emergency Contacts"),
-              trailing: Icon(Icons.chevron_right),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: Icon(Icons.find_in_page), // Lost & Found icon
-              title: Text("Lost & Found"),
-              trailing: Icon(Icons.chevron_right),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LostAndFound()),
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(
-                  HeroIcons.chat_bubble_bottom_center_text), // Feedback icon
-              title: Text("Feedback & Complaints"),
-              trailing: Icon(Icons.chevron_right),
-              onTap: () {},
-            ),
-          ],
-        ),
-      ),
       appBar: AppBar(
+        leading: IconButton(
+            icon: Icon(Icons.menu),
+            onPressed: () {
+              _onItemTapped(3);
+            }),
         title: Text("Transport Schedule"),
         toolbarHeight: 100,
         centerTitle: true,
@@ -266,6 +194,31 @@ class _Schedule extends State<Schedule> {
                 );
               },
             ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        // backgroundColor: Colors.black,
+        selectedItemColor: Colors.blue,
+        unselectedItemColor: Colors.grey,
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(HeroIcons.calendar_days),
+            label: "Schedule",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Iconsax.location_bold),
+            label: "Live Tracking",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.local_taxi),
+            label: "Request Ride",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.menu),
+            label: "Menu",
           ),
         ],
       ),
