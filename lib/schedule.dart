@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:routeradar/routes_and_fare.dart';
 
 class Schedule extends StatefulWidget {
   const Schedule({super.key});
@@ -144,7 +145,12 @@ class _Schedule extends State<Schedule> {
               leading: Icon(LineAwesome.map_marked_alt_solid), // Routes icon
               title: Text("Routes & Fares"),
               trailing: Icon(Icons.chevron_right),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => RoutesAndFares()),
+                );
+              },
             ),
             ListTile(
               leading: Icon(
@@ -171,7 +177,8 @@ class _Schedule extends State<Schedule> {
               onTap: () {},
             ),
             ListTile(
-              leading: Icon(HeroIcons.chat_bubble_bottom_center_text), // Feedback icon
+              leading: Icon(
+                  HeroIcons.chat_bubble_bottom_center_text), // Feedback icon
               title: Text("Feedback & Complaints"),
               trailing: Icon(Icons.chevron_right),
               onTap: () {},
@@ -182,6 +189,7 @@ class _Schedule extends State<Schedule> {
       appBar: AppBar(
         title: Text("Transport Schedule"),
         toolbarHeight: 100,
+        centerTitle: true,
         actions: [
           IconButton(
               icon: Icon(HeroIcons.arrow_path_rounded_square),
