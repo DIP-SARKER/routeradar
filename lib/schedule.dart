@@ -100,6 +100,85 @@ class _Schedule extends State<Schedule> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            SizedBox(
+              height: 150,
+              child: DrawerHeader(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Icon(
+                      LineAwesome.shuttle_van_solid,
+                    ),
+                    IconButton(
+                      icon: Icon(HeroIcons.x_mark),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(HeroIcons.home), // Home icon
+              title: Text("Home"),
+              trailing: Icon(Icons.chevron_right),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: Icon(Iconsax.location_bold), // Bus tracking icon
+              title: Text("Live Tracking"),
+              trailing: Icon(Icons.chevron_right),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: Icon(Icons.local_taxi), // Ride request icon
+              title: Text("Request a Ride"),
+              trailing: Icon(Icons.chevron_right),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: Icon(LineAwesome.map_marked_alt_solid), // Routes icon
+              title: Text("Routes & Fares"),
+              trailing: Icon(Icons.chevron_right),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: Icon(
+                FontAwesome.user_tie_solid,
+                size: 22,
+              ), // Profile icon
+              title: Text("Profile & Settings"),
+              trailing: Icon(Icons.chevron_right),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: Icon(
+                HeroIcons.phone_arrow_up_right,
+                size: 22,
+              ), // Emergency contact icon
+              title: Text("Emergency Contacts"),
+              trailing: Icon(Icons.chevron_right),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: Icon(Icons.find_in_page), // Lost & Found icon
+              title: Text("Lost & Found"),
+              trailing: Icon(Icons.chevron_right),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: Icon(HeroIcons.chat_bubble_bottom_center_text), // Feedback icon
+              title: Text("Feedback & Complaints"),
+              trailing: Icon(Icons.chevron_right),
+              onTap: () {},
+            ),
+          ],
+        ),
+      ),
       appBar: AppBar(
         title: Text("Transport Schedule"),
         toolbarHeight: 100,
@@ -107,7 +186,6 @@ class _Schedule extends State<Schedule> {
           IconButton(
               icon: Icon(HeroIcons.arrow_path_rounded_square),
               onPressed: () {}),
-          IconButton(icon: Icon(HeroIcons.bars_4), onPressed: () {}),
         ],
       ),
       body: Column(
