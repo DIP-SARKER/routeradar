@@ -13,8 +13,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark().copyWith(
-        primaryColor: Colors.blueAccent,
-        disabledColor:  Colors.grey[600],
+        primaryColor: const Color.fromARGB(255, 119, 82, 223),
+        disabledColor: Colors.grey[600],
+        hintColor: const Color.fromARGB(255, 42, 15, 117),
       ),
       home: Schedule(),
     );

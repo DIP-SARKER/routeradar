@@ -240,7 +240,7 @@ class _Schedule extends State<Schedule> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         // backgroundColor: Colors.black,
-        selectedItemColor: Colors.blue,
+        selectedItemColor: Theme.of(context).primaryColor,
         unselectedItemColor: Colors.white,
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
