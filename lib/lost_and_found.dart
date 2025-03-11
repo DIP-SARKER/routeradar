@@ -155,7 +155,7 @@ class _LostAndFoundState extends State<LostAndFound> {
                     style: TextStyle(color: Colors.white)),
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 15),
-                  backgroundColor: Colors.red,
+                  backgroundColor: Colors.redAccent,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
                   ),

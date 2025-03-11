@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:routeradar/emergency_contacts.dart';
 import 'package:routeradar/feedback.dart';
 import 'package:routeradar/lost_and_found.dart';
 import 'package:routeradar/routes_and_fare.dart';
@@ -140,6 +141,21 @@ class _MenuPage extends State<MenuPage> {
           ListTile(
             contentPadding: EdgeInsets.only(left: 30, bottom: 10),
             leading: const Icon(
+              FontAwesome.address_card,
+              size: 25,
+            ),
+            horizontalTitleGap: 30.0,
+            title: const Text(
+              "Driver Information",
+              style: TextStyle(
+                fontSize: 20,
+              ),
+            ),
+            onTap: () {},
+          ),
+          ListTile(
+            contentPadding: EdgeInsets.only(left: 30, bottom: 10),
+            leading: const Icon(
               FontAwesome.user_tie_solid,
               size: 30,
             ),
@@ -165,7 +181,13 @@ class _MenuPage extends State<MenuPage> {
                 fontSize: 20,
               ),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const EmergencyContactsPage()),
+              );
+            },
           ),
           ListTile(
             contentPadding: EdgeInsets.only(left: 30, bottom: 10),

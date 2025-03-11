@@ -37,15 +37,18 @@ class _RoutesAndFares extends State<RoutesAndFares> {
             child: ListTile(
               contentPadding:
                   EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-              leading: Icon(FontAwesome.bus_solid, color: Colors.blueAccent),
+              leading:
+                  Icon(FontAwesome.route_solid, size: 30, color: Colors.white),
               title: Text(
                 routes[index]["route"]!,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               subtitle: Text(
                   "Fare: ${routes[index]["fare"]}\nEstimated Time: ${routes[index]["time"]}"),
-              trailing: Icon(Icons.chevron_right, color: Colors.grey),
-              onTap: () {},
+              trailing: IconButton(
+                icon: Icon(Icons.chevron_right, color: Colors.blueAccent),
+                onPressed: () {},
+              ),
             ),
           );
         },

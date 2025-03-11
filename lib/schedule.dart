@@ -167,8 +167,8 @@ class _Schedule extends State<Schedule> {
                     leading:
                         Icon(FontAwesome.bus_solid, color: Colors.blueAccent),
                     trailing: IconButton(
-                      icon:
-                          Icon(Icons.info_outline_rounded, color: Colors.white),
+                      icon: Icon(Icons.info_outline_rounded,
+                          color: Colors.blueAccent),
                       onPressed: () {
                         showDialog(
                           context: context,
