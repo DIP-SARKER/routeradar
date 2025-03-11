@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:routeradar/feedback.dart';
 import 'package:routeradar/lost_and_found.dart';
 import 'package:routeradar/routes_and_fare.dart';
 
@@ -199,7 +200,13 @@ class _MenuPage extends State<MenuPage> {
                 fontSize: 20,
               ),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const FeedbackComplaintsPage()),
+              );
+            },
           ),
         ],
       ),
