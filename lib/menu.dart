@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:routeradar/driverinfo.dart';
 import 'package:routeradar/emergency_contacts.dart';
 import 'package:routeradar/feedback.dart';
 import 'package:routeradar/lost_and_found.dart';
 import 'package:routeradar/routes_and_fare.dart';
+import 'package:routeradar/schedule.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage({super.key});
@@ -36,13 +38,14 @@ class _MenuPage extends State<MenuPage> {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: Colors.blueAccent, // Set your border color here
+                      color: Theme.of(context)
+                          .primaryColor, // Set your border color here
                       width: 3.0, // Border width
                     ),
                   ),
                   child: CircleAvatar(
                     radius: 25,
-                    backgroundImage: AssetImage("assets/IMG.jpg"),
+                    backgroundImage: AssetImage("assets/IMG.png"),
                   ),
                 ),
                 SizedBox(width: 30),
@@ -60,9 +63,9 @@ class _MenuPage extends State<MenuPage> {
                     Text(
                       "221-15-XXXX",
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: 14,
                         fontWeight: FontWeight.bold,
-                        color: Colors.grey[600],
+                        color: Theme.of(context).disabledColor,
                       ),
                     ),
                   ],
@@ -71,7 +74,7 @@ class _MenuPage extends State<MenuPage> {
             ),
           ),
           Divider(
-            color: Colors.grey,
+            color: Theme.of(context).primaryColor,
           ),
           ListTile(
             contentPadding: EdgeInsets.only(left: 30, bottom: 10),
@@ -86,7 +89,26 @@ class _MenuPage extends State<MenuPage> {
                 fontSize: 20,
               ),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        Schedule(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return ScaleTransition(
+                        scale: Tween<double>(begin: 0.0, end: 1.0).animate(
+                          CurvedAnimation(
+                            parent: animation,
+                            curve: Curves.easeInOut,
+                          ),
+                        ),
+                        child: child,
+                      );
+                    },
+                  ));
+            },
           ),
           ListTile(
             contentPadding: EdgeInsets.only(left: 30, bottom: 10),
@@ -133,9 +155,23 @@ class _MenuPage extends State<MenuPage> {
             ),
             onTap: () {
               Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const RoutesAndFares()),
-              );
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        RoutesAndFares(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return ScaleTransition(
+                        scale: Tween<double>(begin: 0.0, end: 1.0).animate(
+                          CurvedAnimation(
+                            parent: animation,
+                            curve: Curves.easeInOut,
+                          ),
+                        ),
+                        child: child,
+                      );
+                    },
+                  ));
             },
           ),
           ListTile(
@@ -151,7 +187,26 @@ class _MenuPage extends State<MenuPage> {
                 fontSize: 20,
               ),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        DriverInfo(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return ScaleTransition(
+                        scale: Tween<double>(begin: 0.0, end: 1.0).animate(
+                          CurvedAnimation(
+                            parent: animation,
+                            curve: Curves.easeInOut,
+                          ),
+                        ),
+                        child: child,
+                      );
+                    },
+                  ));
+            },
           ),
           ListTile(
             contentPadding: EdgeInsets.only(left: 30, bottom: 10),
@@ -183,10 +238,23 @@ class _MenuPage extends State<MenuPage> {
             ),
             onTap: () {
               Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const EmergencyContactsPage()),
-              );
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        EmergencyContactsPage(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return ScaleTransition(
+                        scale: Tween<double>(begin: 0.0, end: 1.0).animate(
+                          CurvedAnimation(
+                            parent: animation,
+                            curve: Curves.easeInOut,
+                          ),
+                        ),
+                        child: child,
+                      );
+                    },
+                  ));
             },
           ),
           ListTile(
@@ -204,9 +272,23 @@ class _MenuPage extends State<MenuPage> {
             ),
             onTap: () {
               Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const LostAndFound()),
-              );
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        LostAndFound(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return ScaleTransition(
+                        scale: Tween<double>(begin: 0.0, end: 1.0).animate(
+                          CurvedAnimation(
+                            parent: animation,
+                            curve: Curves.easeInOut,
+                          ),
+                        ),
+                        child: child,
+                      );
+                    },
+                  ));
             },
           ),
           ListTile(
@@ -224,10 +306,23 @@ class _MenuPage extends State<MenuPage> {
             ),
             onTap: () {
               Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const FeedbackComplaintsPage()),
-              );
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        FeedbackComplaintsPage(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return ScaleTransition(
+                        scale: Tween<double>(begin: 0.0, end: 1.0).animate(
+                          CurvedAnimation(
+                            parent: animation,
+                            curve: Curves.easeInOut,
+                          ),
+                        ),
+                        child: child,
+                      );
+                    },
+                  ));
             },
           ),
         ],

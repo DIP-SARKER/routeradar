@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark().copyWith(
         primaryColor: Colors.blueAccent,
+        disabledColor:  Colors.grey[600],
       ),
       home: Schedule(),
     );

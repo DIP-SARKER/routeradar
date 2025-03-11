@@ -54,7 +54,7 @@ class _EmergencyContactsPage extends State<EmergencyContactsPage> {
         onPressed: () {
           // Add functionality for adding custom contacts
         },
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Theme.of(context).primaryColor,
         child: Icon(Icons.add),
       ),
     );
@@ -76,9 +76,9 @@ class ContactCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       elevation: 0,
-      margin: const EdgeInsets.symmetric(vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: ListTile(
         leading: Icon(
           icon,
@@ -102,7 +102,7 @@ class ContactCard extends StatelessWidget {
         ),
         trailing: IconButton(
           icon: Icon(Icons.phone),
-          color: Colors.blueAccent,
+          color: Theme.of(context).primaryColor,
           onPressed: () {},
         ),
       ),

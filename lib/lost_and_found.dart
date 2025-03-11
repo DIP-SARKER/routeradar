@@ -42,29 +42,39 @@ class _LostAndFoundState extends State<LostAndFound> {
               itemBuilder: (context, index) {
                 return Card(
                   margin:
-                      const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 20, horizontal: 15),
+                    padding: const EdgeInsets.only( left: 30, right: 20, top: 10, bottom: 10),
                     child: Row(
                       children: [
-                        CircleAvatar(
-                          backgroundColor: items[index]["status"] == "Lost"
-                              ? Colors.redAccent
-                              : const Color.fromARGB(255, 9, 141, 13),
-                          radius: 20,
-                          child: Icon(
-                            items[index]["status"] == "Lost"
-                                ? FontAwesome.triangle_exclamation_solid
-                                : FontAwesome.check_solid,
-                            color: Colors.white,
-                            size: 20,
-                          ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(
+                              items[index]["status"] == "Lost"
+                                  ? FontAwesome.triangle_exclamation_solid
+                                  : FontAwesome.check_solid,
+                              color: items[index]["status"] == "Lost"
+                                  ? Colors.redAccent
+                                  : const Color.fromARGB(255, 9, 141, 13),
+                              size: 30,
+                            ),
+                            SizedBox(height: 3),
+                            Text(
+                              items[index]["status"]!,
+                              style: TextStyle(
+                                color: items[index]["status"] == "Lost"
+                                    ? Colors.redAccent
+                                    : const Color.fromARGB(255, 9, 141, 13),
+                                fontSize: 13,
+                              ),
+                            ),
+                          ],
                         ),
-                        SizedBox(width: 12),
+                        SizedBox(width: 20),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,37 +86,14 @@ class _LostAndFoundState extends State<LostAndFound> {
                               ),
                               Row(
                                 children: [
-                                  const Icon(Icons.place,
+                                  Icon(Icons.place,
                                       size: 16,
-                                      color:
-                                          Color.fromARGB(255, 129, 127, 127)),
-                                  const SizedBox(width: 5),
+                                      color: Theme.of(context).disabledColor),
+                                  SizedBox(width: 5),
                                   Text(
                                     items[index]["location"]!,
                                     style: TextStyle(
-                                        color:
-                                            Color.fromARGB(255, 129, 127, 127)),
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Icon(
-                                    items[index]["status"] == "Lost"
-                                        ? Icons.close
-                                        : Icons.check,
-                                    size: 16,
-                                    color: items[index]["status"] == "Lost"
-                                        ? Colors.redAccent
-                                        : const Color.fromARGB(255, 9, 141, 13),
-                                  ),
-                                  const SizedBox(width: 5),
-                                  Text(
-                                    items[index]["status"]!,
-                                    style: TextStyle(
-                                      color: items[index]["status"] == "Lost"
-                                          ? Colors.redAccent
-                                          : const Color.fromARGB(
-                                              255, 9, 141, 13),
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                        color: Theme.of(context).disabledColor),
                                   ),
                                 ],
                               ),
@@ -114,8 +101,8 @@ class _LostAndFoundState extends State<LostAndFound> {
                           ),
                         ),
                         const SizedBox(width: 10),
-                        if (items[index]["status"] == "Lost")
-                          ElevatedButton(
+                        if (items[index]["status"] != "Lost")
+                          TextButton(
                             onPressed: () {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
@@ -125,17 +112,9 @@ class _LostAndFoundState extends State<LostAndFound> {
                                 ),
                               );
                             },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  const Color.fromARGB(255, 9, 141, 13),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 12, vertical: 8),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                            ),
                             child: const Text("Claim",
-                                style: TextStyle(color: Colors.white)),
+                                style: TextStyle(
+                                    color: Color.fromARGB(255, 9, 141, 13))),
                           ),
                       ],
                     ),

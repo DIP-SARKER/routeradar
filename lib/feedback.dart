@@ -52,7 +52,7 @@ class _FeedbackComplaintsPageState extends State<FeedbackComplaintsPage> {
               decoration: InputDecoration(
                 labelText: "Select Complaint Type",
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(12),
                 ),
               ),
               value: _complaintType,
@@ -76,7 +76,7 @@ class _FeedbackComplaintsPageState extends State<FeedbackComplaintsPage> {
                 labelText: "Your Feedback",
                 alignLabelWithHint: true,
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(16),
                 ),
               ),
             ),
@@ -86,9 +86,9 @@ class _FeedbackComplaintsPageState extends State<FeedbackComplaintsPage> {
               height: 50,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blueAccent,
+                  backgroundColor: Theme.of(context).primaryColor,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(16),
                   ),
                 ),
                 onPressed: () {
@@ -134,7 +134,7 @@ class _FeedbackComplaintsPageState extends State<FeedbackComplaintsPage> {
                   "Submit",
                   style: TextStyle(
                     fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
                 ),
               ),

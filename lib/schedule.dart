@@ -10,18 +10,54 @@ class Schedule extends StatefulWidget {
 }
 
 class _Schedule extends State<Schedule> {
-  int selectedDateIndex = 0;
   int _selectedIndex = 0;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final route = ModalRoute.of(context);
+    if (route != null && route.settings.name == '/') {
+      setState(() {
+        _selectedIndex = 0;
+      });
+    }
+  }
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
       if (index == 3) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => MenuPage()),
-        );
+        {
+          Navigator.push(
+            context,
+            PageRouteBuilder(
+              pageBuilder: (context, animation, secondaryAnimation) =>
+                  MenuPage(),
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                const begin = Offset(1.0, 0.0);
+                const end = Offset.zero;
+                const curve = Curves.ease;
+
+                var tween = Tween(begin: begin, end: end)
+                    .chain(CurveTween(curve: curve));
+                var offsetAnimation = animation.drive(tween);
+
+                return SlideTransition(
+                  position: offsetAnimation,
+                  child: child,
+                );
+              },
+            ),
+          );
+        }
       }
+    });
+  }
+
+  void _refreshSchedule() {
+    setState(() {
+      schedule.shuffle();
     });
   }
 
@@ -127,7 +163,9 @@ class _Schedule extends State<Schedule> {
         actions: [
           IconButton(
               icon: Icon(HeroIcons.arrow_path_rounded_square),
-              onPressed: () {}),
+              onPressed: () {
+                _refreshSchedule();
+              }),
         ],
       ),
       body: Column(
@@ -142,7 +180,6 @@ class _Schedule extends State<Schedule> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
                   ),
-                  color: Colors.grey[900],
                   child: ListTile(
                     contentPadding: EdgeInsets.all(16),
                     title: Text(
@@ -157,18 +194,21 @@ class _Schedule extends State<Schedule> {
                       children: [
                         SizedBox(height: 5),
                         Text("Time: ${schedule[index]['time']}",
-                            style: TextStyle(color: Colors.grey)),
+                            style: TextStyle(
+                                color: Theme.of(context).disabledColor)),
                         Text("Bus: ${schedule[index]['bus']}",
-                            style: TextStyle(color: Colors.grey)),
+                            style: TextStyle(
+                                color: Theme.of(context).disabledColor)),
                         Text("Driver: ${schedule[index]['driver']}",
-                            style: TextStyle(color: Colors.grey)),
+                            style: TextStyle(
+                                color: Theme.of(context).disabledColor)),
                       ],
                     ),
-                    leading:
-                        Icon(FontAwesome.bus_solid, color: Colors.blueAccent),
+                    leading: Icon(FontAwesome.bus_solid,
+                        color: Theme.of(context).primaryColor),
                     trailing: IconButton(
                       icon: Icon(Icons.info_outline_rounded,
-                          color: Colors.blueAccent),
+                          color: Theme.of(context).primaryColor),
                       onPressed: () {
                         showDialog(
                           context: context,
@@ -183,7 +223,8 @@ class _Schedule extends State<Schedule> {
                               TextButton(
                                 onPressed: () => Navigator.pop(context),
                                 child: Text("Close",
-                                    style: TextStyle(color: Colors.blueAccent)),
+                                    style: TextStyle(
+                                        color: Theme.of(context).primaryColor)),
                               ),
                             ],
                           ),
@@ -200,7 +241,7 @@ class _Schedule extends State<Schedule> {
       bottomNavigationBar: BottomNavigationBar(
         // backgroundColor: Colors.black,
         selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
+        unselectedItemColor: Colors.white,
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
         items: const [
@@ -217,7 +258,7 @@ class _Schedule extends State<Schedule> {
             label: "Request Ride",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.menu),
+            icon: Icon(HeroIcons.bars_4),
             label: "Menu",
           ),
         ],

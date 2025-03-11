@@ -30,7 +30,7 @@ class _RoutesAndFares extends State<RoutesAndFares> {
         itemCount: routes.length,
         itemBuilder: (context, index) {
           return Card(
-            margin: EdgeInsets.only(left: 20, right: 20, top: 12, bottom: 13),
+            margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             ),
@@ -44,9 +44,13 @@ class _RoutesAndFares extends State<RoutesAndFares> {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               subtitle: Text(
-                  "Fare: ${routes[index]["fare"]}\nEstimated Time: ${routes[index]["time"]}"),
+                  "Fare: ${routes[index]["fare"]}\nEstimated Time: ${routes[index]["time"]}",
+                  style: TextStyle(
+                    color: Theme.of(context).disabledColor,
+                  ),
+                  ),
               trailing: IconButton(
-                icon: Icon(Icons.chevron_right, color: Colors.blueAccent),
+                icon: Icon(Icons.chevron_right, color: Theme.of(context).primaryColor),
                 onPressed: () {},
               ),
             ),
