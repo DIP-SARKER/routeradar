@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:lottie/lottie.dart';
+import 'package:routeradar/schedule.dart';
 import 'package:routeradar/signup_request_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -97,7 +98,10 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 250),
               Center(
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => Schedule()));
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).primaryColor,
                     padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
