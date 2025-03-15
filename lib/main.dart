@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:routeradar/schedule.dart';
+import 'package:routeradar/splashpage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         disabledColor: Colors.grey[600],
         hintColor: const Color.fromARGB(255, 42, 15, 117),
       ),
-      home: Schedule(),
+      home: SplashScreen(),
     );
   }
 }//Hi My self DSNILOY
