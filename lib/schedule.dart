@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:routeradar/live_tracking.dart';
 import 'package:routeradar/menu.dart';
 import 'package:routeradar/request_ride.dart';
 
@@ -14,14 +15,14 @@ class _Schedule extends State<Schedule> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) async {
-    if (index == 2) {
+    if (index == 1) {
       await Navigator.push(
         context,
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              RequestRidePage(),
+              LiveTrackingPage(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            const begin = Offset(1.0, 0.0);
+            const begin = Offset(0.0, 1.0);
             const end = Offset.zero;
             const curve = Curves.ease;
             var tween =
@@ -31,8 +32,25 @@ class _Schedule extends State<Schedule> {
           },
         ),
       );
-      setState(() =>
-          _selectedIndex = 0); // Ensure Schedule tab is active after returning
+      setState(() => _selectedIndex = 0);
+    } else if (index == 2) {
+      await Navigator.push(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              RequestRidePage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            const begin = Offset(0.0, 1.0);
+            const end = Offset.zero;
+            const curve = Curves.ease;
+            var tween =
+                Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+            var offsetAnimation = animation.drive(tween);
+            return SlideTransition(position: offsetAnimation, child: child);
+          },
+        ),
+      );
+      setState(() => _selectedIndex = 0);
     } else if (index == 3) {
       await Navigator.push(
         context,
@@ -49,8 +67,7 @@ class _Schedule extends State<Schedule> {
           },
         ),
       );
-      setState(() =>
-          _selectedIndex = 0); // Ensure Schedule tab is active after returning
+      setState(() => _selectedIndex = 0);
     } else {
       setState(() => _selectedIndex = index);
     }
@@ -154,7 +171,7 @@ class _Schedule extends State<Schedule> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            icon: Icon(Icons.menu),
+            icon: Icon(HeroIcons.bars_4),
             onPressed: () {
               _onItemTapped(3);
             }),

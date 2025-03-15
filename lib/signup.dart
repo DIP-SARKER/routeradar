@@ -52,7 +52,7 @@ class _SignUpPage extends State<SignUpPage> {
               TextField(
                 cursorColor: Theme.of(context).primaryColor,
                 decoration: InputDecoration(
-                  labelText: 'Email',
+                  labelText: 'Student Email',
                   border: OutlineInputBorder(),
                   prefixIcon: Icon(Icons.email),
                 ),
@@ -71,7 +71,7 @@ class _SignUpPage extends State<SignUpPage> {
               TextField(
                 cursorColor: Theme.of(context).primaryColor,
                 decoration: InputDecoration(
-                  labelText: 'ID',
+                  labelText: 'Student ID',
                   border: OutlineInputBorder(),
                   prefixIcon: Icon(FontAwesome.id_card_clip_solid, size: 18),
                 ),
@@ -113,7 +113,7 @@ class _SignUpPage extends State<SignUpPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 180),
+              SizedBox(height: 155),
               Center(
                 child: ElevatedButton(
                   onPressed: () {

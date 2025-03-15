@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:icons_plus/icons_plus.dart';
-import 'package:routeradar/menu.dart';
 
 class DriverInfo extends StatefulWidget {
   const DriverInfo({super.key});
@@ -10,40 +8,6 @@ class DriverInfo extends StatefulWidget {
 }
 
 class _DriverInfo extends State<DriverInfo> {
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-      if (index == 3) {
-        {
-          Navigator.push(
-            context,
-            PageRouteBuilder(
-              pageBuilder: (context, animation, secondaryAnimation) =>
-                  MenuPage(),
-              transitionsBuilder:
-                  (context, animation, secondaryAnimation, child) {
-                const begin = Offset(1.0, 0.0);
-                const end = Offset.zero;
-                const curve = Curves.ease;
-
-                var tween = Tween(begin: begin, end: end)
-                    .chain(CurveTween(curve: curve));
-                var offsetAnimation = animation.drive(tween);
-
-                return SlideTransition(
-                  position: offsetAnimation,
-                  child: child,
-                );
-              },
-            ),
-          );
-        }
-      }
-    });
-  }
-
   final List<Map<String, String>> transportRoutes = [
     {
       "bus": "Surjomukhi 100",
@@ -180,31 +144,6 @@ class _DriverInfo extends State<DriverInfo> {
             ),
           );
         },
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        // backgroundColor: Colors.black,
-        selectedItemColor: Theme.of(context).primaryColor,
-        unselectedItemColor: Colors.white,
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(HeroIcons.calendar_days),
-            label: "Schedule",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Iconsax.location_bold),
-            label: "Live Tracking",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.local_taxi),
-            label: "Request Ride",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(HeroIcons.bars_4),
-            label: "Menu",
-          ),
-        ],
       ),
     );
   }

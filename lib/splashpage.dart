@@ -58,7 +58,7 @@ class _SplashScreen extends State<SplashScreen> {
                     Colors.orange,
                     Colors.red,
                   ],
-                  speed: const Duration(milliseconds: 500),
+                  speed: const Duration(milliseconds: 600),
                 ),
               ],
               totalRepeatCount: 1,

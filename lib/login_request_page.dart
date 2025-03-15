@@ -127,7 +127,7 @@ class _LoginRequestPage extends State<LoginRequestPage> {
             const SizedBox(height: 24),
             _buildAuthButton(
               FontAwesome.id_card_clip_solid,
-              "Continue with ID",
+              "Continue with Student ID",
               () {
                 Navigator.push(
                   context,

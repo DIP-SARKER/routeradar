@@ -3,46 +3,81 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:routeradar/driverinfo.dart';
 import 'package:routeradar/emergency_contacts.dart';
 import 'package:routeradar/feedback.dart';
+import 'package:routeradar/live_tracking.dart';
 import 'package:routeradar/lost_and_found.dart';
 import 'package:routeradar/profile_page.dart';
 import 'package:routeradar/request_ride.dart';
 import 'package:routeradar/routes_and_fare.dart';
 import 'package:routeradar/schedule.dart';
 
-class MenuPage extends StatefulWidget {
+class MenuPage extends StatelessWidget {
   const MenuPage({super.key});
 
-  @override
-  State<MenuPage> createState() => _MenuPage();
-}
+  Widget _buildSectionTitle(String title) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      child: Text(
+        title,
+        style: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          color: Colors.grey,
+        ),
+      ),
+    );
+  }
 
-class _MenuPage extends State<MenuPage> {
+  Widget _buildMenuItem(
+      {required double iconSize,
+      required IconData icon,
+      required String title,
+      required VoidCallback onTap}) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 30),
+      child: ListTile(
+        leading: Icon(icon, size: iconSize, color: Colors.white),
+        title: Padding(
+          padding: const EdgeInsets.only(left: 20),
+          child: Text(
+            title,
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+          ),
+        ),
+        onTap: onTap,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 100,
-        title: const Text("Route-Radar"),
+        title: const Text(
+          "Route-Radar",
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
         elevation: 0,
       ),
       body: ListView(
         children: [
           SizedBox(
-            height: 80,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(width: 30),
-                Container(
-                  width: 60, // Adjust this to fit your border needs
-                  height: 60, // Adjust this to fit your border needs
+            height: 20,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(width: 30),
+              GestureDetector(
+                child: Container(
+                  width: 60,
+                  height: 60,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: Theme.of(context)
-                          .primaryColor, // Set your border color here
-                      width: 3.0, // Border width
+                      color: Theme.of(context).primaryColor,
+                      width: 3.0,
                     ),
                   ),
                   child: CircleAvatar(
@@ -50,320 +85,141 @@ class _MenuPage extends State<MenuPage> {
                     backgroundImage: AssetImage("assets/IMG.png"),
                   ),
                 ),
-                SizedBox(width: 30),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "XX XXXX XXXX",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Dialog(
+                        child: Container(
+                          width: 300,
+                          height: 300,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(30)),
+                            image: DecorationImage(
+                              image: AssetImage("assets/IMG.png"),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
+              SizedBox(width: 30),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "XX XXXX XXXX",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
                     ),
-                    Text(
-                      "221-15-XXXX",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).disabledColor,
-                      ),
+                  ),
+                  Text(
+                    "221-15-XXXX",
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).disabledColor,
                     ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          Divider(
-            color: Theme.of(context).primaryColor,
-          ),
-          ListTile(
-            contentPadding: EdgeInsets.only(left: 30, bottom: 10),
-            leading: const Icon(
-              HeroIcons.calendar_days,
-              size: 30,
-            ),
-            horizontalTitleGap: 30.0,
-            title: const Text(
-              "Transport Schedule",
-              style: TextStyle(
-                fontSize: 20,
+                  ),
+                ],
               ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          const Divider(),
+          _buildSectionTitle("Transport Services"),
+          _buildMenuItem(
+              iconSize: 35.0,
+              icon: HeroIcons.calendar_days,
+              title: "Transport Schedule",
+              onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Schedule()),
+                  )),
+          _buildMenuItem(
+            iconSize: 35.0,
+            icon: Iconsax.location_bold,
+            title: "Live Tracking",
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const LiveTrackingPage()),
             ),
-            onTap: () {
-              Navigator.push(
+          ),
+          _buildMenuItem(
+            iconSize: 35.0,
+            icon: Icons.local_taxi,
+            title: "Request a Ride",
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const RequestRidePage()),
+            ),
+          ),
+          _buildMenuItem(
+            iconSize: 35.0,
+            icon: LineAwesome.map_marked_alt_solid,
+            title: "Routes & Fares",
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const RoutesAndFares()),
+            ),
+          ),
+          const Divider(),
+          _buildSectionTitle("User & Driver Info"),
+          _buildMenuItem(
+              iconSize: 28.0,
+              icon: FontAwesome.address_card,
+              title: "Driver Information",
+              onTap: () {
+                Navigator.push(
                   context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        Schedule(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
-                      return ScaleTransition(
-                        scale: Tween<double>(begin: 0.0, end: 1.0).animate(
-                          CurvedAnimation(
-                            parent: animation,
-                            curve: Curves.easeInOut,
-                          ),
-                        ),
-                        child: child,
-                      );
-                    },
-                  ));
-            },
+                  MaterialPageRoute(builder: (context) => const DriverInfo()),
+                );
+              }),
+          _buildMenuItem(
+            iconSize: 28.0,
+            icon: FontAwesome.user_tie_solid,
+            title: "Profile & Settings",
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const ProfileSettingsPage()),
+            ),
           ),
-          ListTile(
-            contentPadding: EdgeInsets.only(left: 30, bottom: 10),
-            leading: const Icon(
-              Iconsax.location_bold,
-              size: 30,
+          const Divider(),
+          _buildSectionTitle("Support & Assistance"),
+          _buildMenuItem(
+            iconSize: 28.0,
+            icon: HeroIcons.phone_arrow_up_right,
+            title: "Emergency Contacts",
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const EmergencyContactsPage()),
             ),
-            horizontalTitleGap: 30.0,
-            title: const Text(
-              "Live Tracking",
-              style: TextStyle(
-                fontSize: 20,
-              ),
-            ),
-            onTap: () {},
           ),
-          ListTile(
-            contentPadding: EdgeInsets.only(left: 30, bottom: 10),
-            leading: const Icon(
-              Icons.local_taxi,
-              size: 30,
+          _buildMenuItem(
+            iconSize: 30.0,
+            icon: Icons.find_in_page,
+            title: "Lost & Found",
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const LostAndFound()),
             ),
-            horizontalTitleGap: 30.0,
-            title: const Text(
-              "Request a Ride",
-              style: TextStyle(
-                fontSize: 20,
-              ),
-            ),
-            onTap: () {
-              Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        RequestRidePage(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
-                      return ScaleTransition(
-                        scale: Tween<double>(begin: 0.0, end: 1.0).animate(
-                          CurvedAnimation(
-                            parent: animation,
-                            curve: Curves.easeInOut,
-                          ),
-                        ),
-                        child: child,
-                      );
-                    },
-                  ));
-            },
           ),
-          ListTile(
-            contentPadding: EdgeInsets.only(left: 30, bottom: 10),
-            leading: const Icon(
-              LineAwesome.map_marked_alt_solid,
-              size: 30,
+          _buildMenuItem(
+            iconSize: 30.0,
+            icon: HeroIcons.chat_bubble_bottom_center_text,
+            title: "Feedback & Complaints",
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const FeedbackComplaintsPage()),
             ),
-            horizontalTitleGap: 30.0,
-            title: const Text(
-              "Routes & Fares",
-              style: TextStyle(
-                fontSize: 20,
-              ),
-            ),
-            onTap: () {
-              Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        RoutesAndFares(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
-                      return ScaleTransition(
-                        scale: Tween<double>(begin: 0.0, end: 1.0).animate(
-                          CurvedAnimation(
-                            parent: animation,
-                            curve: Curves.easeInOut,
-                          ),
-                        ),
-                        child: child,
-                      );
-                    },
-                  ));
-            },
-          ),
-          ListTile(
-            contentPadding: EdgeInsets.only(left: 30, bottom: 10),
-            leading: const Icon(
-              FontAwesome.address_card,
-              size: 25,
-            ),
-            horizontalTitleGap: 30.0,
-            title: const Text(
-              "Driver Information",
-              style: TextStyle(
-                fontSize: 20,
-              ),
-            ),
-            onTap: () {
-              Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        DriverInfo(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
-                      return ScaleTransition(
-                        scale: Tween<double>(begin: 0.0, end: 1.0).animate(
-                          CurvedAnimation(
-                            parent: animation,
-                            curve: Curves.easeInOut,
-                          ),
-                        ),
-                        child: child,
-                      );
-                    },
-                  ));
-            },
-          ),
-          ListTile(
-            contentPadding: EdgeInsets.only(left: 30, bottom: 10),
-            leading: const Icon(
-              FontAwesome.user_tie_solid,
-              size: 30,
-            ),
-            horizontalTitleGap: 30.0,
-            title: const Text(
-              "Profile & Settings",
-              style: TextStyle(
-                fontSize: 20,
-              ),
-            ),
-            onTap: () {
-              Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        ProfileSettingsPage(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
-                      return ScaleTransition(
-                        scale: Tween<double>(begin: 0.0, end: 1.0).animate(
-                          CurvedAnimation(
-                            parent: animation,
-                            curve: Curves.easeInOut,
-                          ),
-                        ),
-                        child: child,
-                      );
-                    },
-                  ));
-            },
-          ),
-          ListTile(
-            contentPadding: EdgeInsets.only(left: 30, bottom: 10),
-            leading: const Icon(
-              HeroIcons.phone_arrow_up_right,
-              size: 30,
-            ),
-            horizontalTitleGap: 30.0,
-            title: const Text(
-              "Emergency Contacts",
-              style: TextStyle(
-                fontSize: 20,
-              ),
-            ),
-            onTap: () {
-              Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        EmergencyContactsPage(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
-                      return ScaleTransition(
-                        scale: Tween<double>(begin: 0.0, end: 1.0).animate(
-                          CurvedAnimation(
-                            parent: animation,
-                            curve: Curves.easeInOut,
-                          ),
-                        ),
-                        child: child,
-                      );
-                    },
-                  ));
-            },
-          ),
-          ListTile(
-            contentPadding: EdgeInsets.only(left: 30, bottom: 10),
-            leading: const Icon(
-              Icons.find_in_page,
-              size: 30,
-            ),
-            horizontalTitleGap: 30.0,
-            title: const Text(
-              "Lost & Found",
-              style: TextStyle(
-                fontSize: 20,
-              ),
-            ),
-            onTap: () {
-              Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        LostAndFound(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
-                      return ScaleTransition(
-                        scale: Tween<double>(begin: 0.0, end: 1.0).animate(
-                          CurvedAnimation(
-                            parent: animation,
-                            curve: Curves.easeInOut,
-                          ),
-                        ),
-                        child: child,
-                      );
-                    },
-                  ));
-            },
-          ),
-          ListTile(
-            contentPadding: EdgeInsets.only(left: 30),
-            leading: const Icon(
-              HeroIcons.chat_bubble_bottom_center_text,
-              size: 30,
-            ),
-            horizontalTitleGap: 30.0,
-            title: const Text(
-              "Feedback & Complaints",
-              style: TextStyle(
-                fontSize: 20,
-              ),
-            ),
-            onTap: () {
-              Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        FeedbackComplaintsPage(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
-                      return ScaleTransition(
-                        scale: Tween<double>(begin: 0.0, end: 1.0).animate(
-                          CurvedAnimation(
-                            parent: animation,
-                            curve: Curves.easeInOut,
-                          ),
-                        ),
-                        child: child,
-                      );
-                    },
-                  ));
-            },
           ),
         ],
       ),
