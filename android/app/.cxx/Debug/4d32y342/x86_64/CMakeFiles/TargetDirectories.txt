@@ -1,0 +1,2 @@
+D:/mad project/routeradar/android/app/.cxx/Debug/4d32y342/x86_64/CMakeFiles/edit_cache.dir
+D:/mad project/routeradar/android/app/.cxx/Debug/4d32y342/x86_64/CMakeFiles/rebuild_cache.dir
