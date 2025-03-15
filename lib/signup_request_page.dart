@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:lottie/lottie.dart';
-import 'package:routeradar/signup_request_page.dart';
+import 'package:routeradar/login_request_page.dart';
 
-class LoginRequestPage extends StatefulWidget {
-  const LoginRequestPage({super.key});
+class SignupRequestPage extends StatefulWidget {
+  const SignupRequestPage({super.key});
 
   @override
-  State<LoginRequestPage> createState() => _LoginRequestPage();
+  State<SignupRequestPage> createState() => _SignupRequestPage();
 }
 
-class _LoginRequestPage extends State<LoginRequestPage> {
+class _SignupRequestPage extends State<SignupRequestPage> {
   bool isChecked = false;
 
   void _showUserAgreement() {
@@ -49,7 +49,7 @@ class _LoginRequestPage extends State<LoginRequestPage> {
         elevation: 0,
         color: Colors.transparent,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(10.0),
           side: BorderSide(width: 1, color: Theme.of(context).primaryColor),
         ),
         child: ListTile(
@@ -116,7 +116,7 @@ class _LoginRequestPage extends State<LoginRequestPage> {
               fit: BoxFit.fill,
             ),
             Text(
-              "Log in to RouteRadar",
+              "Sign Up for RouteRadar",
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
                 fontSize: 25,
@@ -128,21 +128,21 @@ class _LoginRequestPage extends State<LoginRequestPage> {
               FontAwesome.id_card_clip_solid,
               "Continue with ID",
               () {
-                //1
+                //3
               },
             ),
             _buildAuthButton(
               FontAwesome.google_brand,
               "Continue with Google",
               () {
-                //1
+                //3
               },
             ),
             _buildAuthButton(
               FontAwesome.user_tie_solid,
               "Use email or username",
               () {
-                //1
+                //3
               },
             ),
             SizedBox(height: 140),
@@ -150,9 +150,9 @@ class _LoginRequestPage extends State<LoginRequestPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Checkbox(
+                  value: isChecked,
                   activeColor: Theme.of(context).primaryColor,
                   checkColor: Colors.white,
-                  value: isChecked,
                   onChanged: (bool? value) {
                     setState(() {
                       isChecked = value ?? false;
@@ -180,7 +180,7 @@ class _LoginRequestPage extends State<LoginRequestPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Don't have an account?",
+                  "Already have an account?",
                   style: TextStyle(color: Colors.white, fontSize: 15),
                 ),
                 TextButton(
@@ -188,12 +188,12 @@ class _LoginRequestPage extends State<LoginRequestPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const SignupRequestPage(),
+                        builder: (context) => LoginRequestPage(),
                       ),
                     );
                   },
                   child: Text(
-                    "Sign up",
+                    "Log In",
                     style: TextStyle(
                       color: Theme.of(context).primaryColor,
                       fontSize: 15,
