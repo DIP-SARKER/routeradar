@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:lottie/lottie.dart';
 import 'package:routeradar/login_request_page.dart';
+import 'package:routeradar/signup.dart';
 
 class SignupRequestPage extends StatefulWidget {
   const SignupRequestPage({super.key});
@@ -128,7 +129,10 @@ class _SignupRequestPage extends State<SignupRequestPage> {
               FontAwesome.id_card_clip_solid,
               "Continue with ID",
               () {
-                //3
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SignUpPage()),
+                );
               },
             ),
             _buildAuthButton(
@@ -142,7 +146,10 @@ class _SignupRequestPage extends State<SignupRequestPage> {
               FontAwesome.user_tie_solid,
               "Use email or username",
               () {
-                //3
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SignUpPage()),
+                );
               },
             ),
             SizedBox(height: 140),
