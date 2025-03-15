@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
-// import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class LiveTrackingPage extends StatefulWidget {
   const LiveTrackingPage({super.key});
@@ -10,94 +10,89 @@ class LiveTrackingPage extends StatefulWidget {
 }
 
 class _LiveTrackingPageState extends State<LiveTrackingPage> {
-  double latitude = 23.8103; // Default location (Dhaka, Bangladesh)
-  double longitude = 90.4125;
-
-  void _updateLocation() {
-    // Simulating location change (in real cases, you would update dynamically)
-    setState(() {
-      latitude += 0.001; // Simulating small movement
-      longitude += 0.001;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    // String mapUrl =
-    //     "https://maps.googleapis.com/maps/api/staticmap?center=$latitude,$longitude&zoom=16&size=600x300&markers=color:red%7C$latitude,$longitude&key=YOUR_GOOGLE_MAPS_API_KEY";
-
     String url = "https://i.ibb.co.com/rGdrkT9f/mapimage.jpg";
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: Colors.grey[700],
-            image: DecorationImage(
-              image: NetworkImage(url),
-              fit: BoxFit.none,
+      body: Stack(
+        children: [
+          /// Background Image (FULL SCREEN)
+          Positioned.fill(
+            child: CachedNetworkImage(
+              imageUrl: url,
+              fit: BoxFit.cover, // Ensures full coverage
+              placeholder: (context, url) =>
+                  Center(child: CircularProgressIndicator()),
+              errorWidget: (context, url, error) => Center(
+                child: Icon(Icons.error, color: Colors.red, size: 50),
+              ),
             ),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 50,
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 30.0),
-                decoration: BoxDecoration(
+
+          /// Foreground UI (FULL SCREEN)
+          SizedBox.expand(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const SizedBox(height: 50),
+
+                /// Search Bar
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 30.0),
+                  padding: const EdgeInsets.only(left: 15),
+                  decoration: BoxDecoration(
                     color: Colors.grey[700],
-                    borderRadius: BorderRadius.circular(30)),
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Search location',
-                    hintStyle: TextStyle(color: Colors.white),
-                    prefixIcon: Icon(
-                      Icons.search,
-                      color: Colors.white,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                      borderSide: BorderSide.none,
-                    ),
-                    filled: true,
-                    fillColor: Colors.grey[700],
+                    borderRadius: BorderRadius.circular(30),
                   ),
-                  onSubmitted: (value) {
-                    // Handle search action
-                  },
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Search location',
+                      hintStyle: const TextStyle(color: Colors.white),
+                      prefixIcon: const Icon(Icons.search, color: Colors.white),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                        borderSide: BorderSide.none,
+                      ),
+                      filled: true,
+                      fillColor: Colors.grey[700],
+                    ),
+                    onSubmitted: (value) {
+                      // Handle search action
+                    },
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 690,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  IconButton(
-                    onPressed: _updateLocation,
-                    icon: Container(
-                        height: 40,
-                        width: 40,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          color: Colors.grey[700],
-                        ),
-                        child: Icon(
+
+                const Spacer(), // Pushes location button to the bottom
+
+                /// Location Button
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.grey[700],
+                      ),
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
                           FontAwesome.location_crosshairs_solid,
                           color: Colors.white,
-                        )),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  )
-                ],
-              ),
-            ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 20),
+                  ],
+                ),
+
+                const SizedBox(height: 20), // Prevents cutting at bottom
+              ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

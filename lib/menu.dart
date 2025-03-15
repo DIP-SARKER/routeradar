@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:routeradar/driverinfo.dart';
 import 'package:routeradar/emergency_contacts.dart';
@@ -137,37 +138,46 @@ class MenuPage extends StatelessWidget {
               iconSize: 35.0,
               icon: HeroIcons.calendar_days,
               title: "Transport Schedule",
-              onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const Schedule()),
-                  )),
+              onTap: () {
+                Get.to(
+                  () => Schedule(),
+                  transition: Transition.circularReveal,
+                  duration: Duration(milliseconds: 1300),
+                );
+              }),
           _buildMenuItem(
-            iconSize: 35.0,
-            icon: Iconsax.location_bold,
-            title: "Live Tracking",
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const LiveTrackingPage()),
-            ),
-          ),
+              iconSize: 35.0,
+              icon: Iconsax.location_bold,
+              title: "Live Tracking",
+              onTap: () {
+                Get.to(
+                  () => LiveTrackingPage(),
+                  transition: Transition.circularReveal,
+                  duration: Duration(milliseconds: 1300),
+                );
+              }),
           _buildMenuItem(
-            iconSize: 35.0,
-            icon: Icons.local_taxi,
-            title: "Request a Ride",
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const RequestRidePage()),
-            ),
-          ),
+              iconSize: 35.0,
+              icon: Icons.local_taxi,
+              title: "Request a Ride",
+              onTap: () {
+                Get.to(
+                  () => RequestRidePage(),
+                  transition: Transition.circularReveal,
+                  duration: Duration(milliseconds: 1300),
+                );
+              }),
           _buildMenuItem(
-            iconSize: 35.0,
-            icon: LineAwesome.map_marked_alt_solid,
-            title: "Routes & Fares",
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const RoutesAndFares()),
-            ),
-          ),
+              iconSize: 35.0,
+              icon: LineAwesome.map_marked_alt_solid,
+              title: "Routes & Fares",
+              onTap: () {
+                Get.to(
+                  () => RoutesAndFares(),
+                  transition: Transition.circularReveal,
+                  duration: Duration(milliseconds: 1300),
+                );
+              }),
           const Divider(),
           _buildSectionTitle("User & Driver Info"),
           _buildMenuItem(
@@ -175,52 +185,58 @@ class MenuPage extends StatelessWidget {
               icon: FontAwesome.address_card,
               title: "Driver Information",
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const DriverInfo()),
+                Get.to(
+                  () => DriverInfo(),
+                  transition: Transition.circularReveal,
+                  duration: Duration(milliseconds: 1300),
                 );
               }),
           _buildMenuItem(
-            iconSize: 28.0,
-            icon: FontAwesome.user_tie_solid,
-            title: "Profile & Settings",
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const ProfileSettingsPage()),
-            ),
-          ),
+              iconSize: 28.0,
+              icon: FontAwesome.user_tie_solid,
+              title: "Profile & Settings",
+              onTap: () {
+                Get.to(
+                  () => ProfileSettingsPage(),
+                  transition: Transition.circularReveal,
+                  duration: Duration(milliseconds: 1300),
+                );
+              }),
           const Divider(),
           _buildSectionTitle("Support & Assistance"),
           _buildMenuItem(
-            iconSize: 28.0,
-            icon: HeroIcons.phone_arrow_up_right,
-            title: "Emergency Contacts",
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const EmergencyContactsPage()),
-            ),
-          ),
+              iconSize: 28.0,
+              icon: HeroIcons.phone_arrow_up_right,
+              title: "Emergency Contacts",
+              onTap: () {
+                Get.to(
+                  () => EmergencyContactsPage(),
+                  transition: Transition.circularReveal,
+                  duration: Duration(milliseconds: 1300),
+                );
+              }),
           _buildMenuItem(
-            iconSize: 30.0,
-            icon: Icons.find_in_page,
-            title: "Lost & Found",
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const LostAndFound()),
-            ),
-          ),
+              iconSize: 30.0,
+              icon: Icons.find_in_page,
+              title: "Lost & Found",
+              onTap: () {
+                Get.to(
+                  () => LostAndFound(),
+                  transition: Transition.circularReveal,
+                  duration: Duration(milliseconds: 1300),
+                );
+              }),
           _buildMenuItem(
-            iconSize: 30.0,
-            icon: HeroIcons.chat_bubble_bottom_center_text,
-            title: "Feedback & Complaints",
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const FeedbackComplaintsPage()),
-            ),
-          ),
+              iconSize: 30.0,
+              icon: HeroIcons.chat_bubble_bottom_center_text,
+              title: "Feedback & Complaints",
+              onTap: () {
+                Get.to(
+                  () => FeedbackComplaintsPage(),
+                  transition: Transition.circularReveal,
+                  duration: Duration(milliseconds: 1300),
+                );
+              }),
         ],
       ),
     );

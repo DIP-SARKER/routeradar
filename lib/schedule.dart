@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:routeradar/live_tracking.dart';
 import 'package:routeradar/menu.dart';
@@ -16,57 +17,28 @@ class _Schedule extends State<Schedule> {
 
   void _onItemTapped(int index) async {
     if (index == 1) {
-      await Navigator.push(
-        context,
-        PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) =>
-              LiveTrackingPage(),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            const begin = Offset(0.0, 1.0);
-            const end = Offset.zero;
-            const curve = Curves.ease;
-            var tween =
-                Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-            var offsetAnimation = animation.drive(tween);
-            return SlideTransition(position: offsetAnimation, child: child);
-          },
-        ),
+      Get.to(
+        () => LiveTrackingPage(),
+        transition: Transition.downToUp,
+        duration: Duration(milliseconds: 1300),
       );
+
       setState(() => _selectedIndex = 0);
     } else if (index == 2) {
-      await Navigator.push(
-        context,
-        PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) =>
-              RequestRidePage(),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            const begin = Offset(0.0, 1.0);
-            const end = Offset.zero;
-            const curve = Curves.ease;
-            var tween =
-                Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-            var offsetAnimation = animation.drive(tween);
-            return SlideTransition(position: offsetAnimation, child: child);
-          },
-        ),
+      Get.to(
+        () => RequestRidePage(),
+        transition: Transition.downToUp,
+        duration: Duration(milliseconds: 1300),
       );
+
       setState(() => _selectedIndex = 0);
     } else if (index == 3) {
-      await Navigator.push(
-        context,
-        PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => MenuPage(),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            const begin = Offset(1.0, 0.0);
-            const end = Offset.zero;
-            const curve = Curves.ease;
-            var tween =
-                Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-            var offsetAnimation = animation.drive(tween);
-            return SlideTransition(position: offsetAnimation, child: child);
-          },
-        ),
+      Get.to(
+        () => MenuPage(),
+        transition: Transition.rightToLeftWithFade,
+        duration: Duration(milliseconds: 1300),
       );
+
       setState(() => _selectedIndex = 0);
     } else {
       setState(() => _selectedIndex = index);
