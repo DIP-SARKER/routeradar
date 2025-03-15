@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   icons_plus: ^5.0.0
   animated_text_kit: ^4.2.3
+  lottie: ^3.3.1
 
 dev_dependencies:
   flutter_test:

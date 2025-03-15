@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:routeradar/schedule.dart';
+import 'package:routeradar/login_request_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -16,7 +16,7 @@ class _SplashScreen extends State<SplashScreen> {
     super.initState();
     Timer.periodic(Duration(seconds: 4), (timer) {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => Schedule()));
+          context, MaterialPageRoute(builder: (context) => LoginRequestPage()));
     });
   }
 
