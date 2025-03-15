@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:routeradar/schedule.dart';
 import 'package:routeradar/splashpage.dart';
 
 void main() {
