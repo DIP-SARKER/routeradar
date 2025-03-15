@@ -4,6 +4,7 @@ import 'package:routeradar/driverinfo.dart';
 import 'package:routeradar/emergency_contacts.dart';
 import 'package:routeradar/feedback.dart';
 import 'package:routeradar/lost_and_found.dart';
+import 'package:routeradar/profile_page.dart';
 import 'package:routeradar/request_ride.dart';
 import 'package:routeradar/routes_and_fare.dart';
 import 'package:routeradar/schedule.dart';
@@ -139,7 +140,8 @@ class _MenuPage extends State<MenuPage> {
                 fontSize: 20,
               ),
             ),
-            onTap: () {Navigator.push(
+            onTap: () {
+              Navigator.push(
                   context,
                   PageRouteBuilder(
                     pageBuilder: (context, animation, secondaryAnimation) =>
@@ -156,7 +158,8 @@ class _MenuPage extends State<MenuPage> {
                         child: child,
                       );
                     },
-                  ));},
+                  ));
+            },
           ),
           ListTile(
             contentPadding: EdgeInsets.only(left: 30, bottom: 10),
@@ -239,7 +242,26 @@ class _MenuPage extends State<MenuPage> {
                 fontSize: 20,
               ),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        ProfileSettingsPage(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return ScaleTransition(
+                        scale: Tween<double>(begin: 0.0, end: 1.0).animate(
+                          CurvedAnimation(
+                            parent: animation,
+                            curve: Curves.easeInOut,
+                          ),
+                        ),
+                        child: child,
+                      );
+                    },
+                  ));
+            },
           ),
           ListTile(
             contentPadding: EdgeInsets.only(left: 30, bottom: 10),
