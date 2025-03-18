@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:routeradar/live_tracking.dart';
-import 'package:routeradar/menu.dart';
-import 'package:routeradar/request_ride.dart';
+import 'package:routeradar/pages/live_tracking.dart';
+import 'package:routeradar/pages/menu.dart';
+import 'package:routeradar/pages/request_ride.dart';
+// import 'package:routeradar/widgets/utils/bnavbar.dart';
 
 class Schedule extends StatefulWidget {
   const Schedule({super.key});

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:routeradar/driverinfo.dart';
-import 'package:routeradar/emergency_contacts.dart';
-import 'package:routeradar/feedback.dart';
-import 'package:routeradar/live_tracking.dart';
-import 'package:routeradar/lost_and_found.dart';
-import 'package:routeradar/profile_page.dart';
-import 'package:routeradar/request_ride.dart';
-import 'package:routeradar/routes_and_fare.dart';
-import 'package:routeradar/schedule.dart';
+import 'package:routeradar/pages/driverinfo.dart';
+import 'package:routeradar/pages/emergency_contacts.dart';
+import 'package:routeradar/pages/feedback.dart';
+import 'package:routeradar/pages/live_tracking.dart';
+import 'package:routeradar/pages/lost_and_found.dart';
+import 'package:routeradar/pages/profile_page.dart';
+import 'package:routeradar/pages/request_ride.dart';
+import 'package:routeradar/pages/routes_and_fare.dart';
+import 'package:routeradar/pages/schedule.dart';
+
 
 class MenuPage extends StatelessWidget {
   const MenuPage({super.key});

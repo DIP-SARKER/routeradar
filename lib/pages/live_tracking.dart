@@ -17,11 +17,10 @@ class _LiveTrackingPageState extends State<LiveTrackingPage> {
     return Scaffold(
       body: Stack(
         children: [
-          /// Background Image (FULL SCREEN)
           Positioned.fill(
             child: CachedNetworkImage(
               imageUrl: url,
-              fit: BoxFit.cover, // Ensures full coverage
+              fit: BoxFit.cover,
               placeholder: (context, url) =>
                   Center(child: CircularProgressIndicator()),
               errorWidget: (context, url, error) => Center(
@@ -29,15 +28,11 @@ class _LiveTrackingPageState extends State<LiveTrackingPage> {
               ),
             ),
           ),
-
-          /// Foreground UI (FULL SCREEN)
           SizedBox.expand(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const SizedBox(height: 50),
-
-                /// Search Bar
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 30.0),
                   padding: const EdgeInsets.only(left: 15),
@@ -57,15 +52,10 @@ class _LiveTrackingPageState extends State<LiveTrackingPage> {
                       filled: true,
                       fillColor: Colors.grey[700],
                     ),
-                    onSubmitted: (value) {
-                      // Handle search action
-                    },
+                    onSubmitted: (value) {},
                   ),
                 ),
-
-                const Spacer(), // Pushes location button to the bottom
-
-                /// Location Button
+                const Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -87,8 +77,7 @@ class _LiveTrackingPageState extends State<LiveTrackingPage> {
                     const SizedBox(width: 20),
                   ],
                 ),
-
-                const SizedBox(height: 20), // Prevents cutting at bottom
+                const SizedBox(height: 20),
               ],
             ),
           ),
