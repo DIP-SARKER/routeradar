@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:routeradar/widgets/customappbar.dart';
 
 class FeedbackComplaintsPage extends StatefulWidget {
   const FeedbackComplaintsPage({super.key});
@@ -21,11 +22,8 @@ class _FeedbackComplaintsPageState extends State<FeedbackComplaintsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Feedback & Complaints"),
-        centerTitle: true,
-        toolbarHeight: 100,
-        elevation: 0,
+      appBar: CustomAppBar(
+        title: "Feedback & Complaints",
       ),
       body: SingleChildScrollView(
         child: Padding(

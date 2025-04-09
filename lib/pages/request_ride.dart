@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:routeradar/widgets/customappbar.dart';
 
 class RequestRidePage extends StatefulWidget {
   const RequestRidePage({super.key});
@@ -116,10 +117,8 @@ class _RequestRidePageState extends State<RequestRidePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Request a Ride"),
-        centerTitle: true,
-        elevation: 0,
+      appBar: CustomAppBar(
+        title: "Request a Ride",
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),

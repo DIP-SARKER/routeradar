@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:routeradar/database.dart';
+import 'package:routeradar/widgets/customappbar.dart';
 
 class EmergencyContactsPage extends StatefulWidget {
   const EmergencyContactsPage({super.key});
@@ -8,104 +10,78 @@ class EmergencyContactsPage extends StatefulWidget {
 }
 
 class _EmergencyContactsPage extends State<EmergencyContactsPage> {
+  final List<Map<String, String>> emergencyContacts =
+      Database().emergencyContacts;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 100,
-        title: Text(
-          'Emergency Contacts',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
-        ),
-        centerTitle: true,
+      appBar: CustomAppBar(
+        title: "Emergency Contacts",
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: ListView(
-          children: [
-            ContactCard(
-              name: 'Fire Department',
-              contactNumber: '101',
-              icon: Icons.local_fire_department,
-            ),
-            ContactCard(
-              name: 'Police',
-              contactNumber: '100',
-              icon: Icons.local_police,
-            ),
-            ContactCard(
-              name: 'Ambulance',
-              contactNumber: '102',
-              icon: Icons.local_hospital,
-            ),
-            ContactCard(
-              name: 'Emergency Services',
-              contactNumber: '999',
-              icon: Icons.warning,
-            ),
-          ],
+        child: ListView.builder(
+          itemCount: emergencyContacts.length,
+          itemBuilder: (context, index) {
+            final contact = emergencyContacts[index];
+            return Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              elevation: 0,
+              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              color: Colors.grey[900],
+              child: ListTile(
+                leading: Icon(
+                  _getIcon(contact['operator']),
+                  color: Colors.amber,
+                  size: 40,
+                ),
+                title: Text(
+                  contact['operator'] ?? 'Unknown',
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold),
+                ),
+                subtitle: Text(
+                  contact['number'] ?? 'Unknown',
+                  style: TextStyle(color: Theme.of(context).disabledColor),
+                ),
+                trailing: IconButton(
+                  icon: Icon(Icons.call, color: Theme.of(context).primaryColor),
+                  onPressed: () {},
+                ),
+              ),
+            );
+          },
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Add functionality for adding custom contacts
-        },
-        backgroundColor: Theme.of(context).primaryColor,
-        child: Icon(Icons.add),
       ),
     );
   }
-}
 
-class ContactCard extends StatelessWidget {
-  final String name;
-  final String contactNumber;
-  final IconData icon;
-
-  const ContactCard({
-    super.key,
-    required this.name,
-    required this.contactNumber,
-    required this.icon,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      elevation: 0,
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: ListTile(
-        leading: Icon(
-          icon,
-          color: Colors.redAccent,
-          size: 40,
-        ),
-        title: Text(
-          name,
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.w600,
-            fontSize: 16,
-          ),
-        ),
-        subtitle: Text(
-          contactNumber,
-          style: TextStyle(
-            color: Colors.grey[700],
-            fontSize: 14,
-          ),
-        ),
-        trailing: IconButton(
-          icon: Icon(Icons.phone),
-          color: Theme.of(context).primaryColor,
-          onPressed: () {},
-        ),
-      ),
-    );
+  IconData _getIcon(String? name) {
+    switch (name?.toLowerCase()) {
+      case 'fire service':
+        return Icons.local_fire_department;
+      case 'police':
+      case 'national emergency service':
+      case 'rab hq':
+        return Icons.local_police;
+      case 'ambulance':
+      case 'medical helpline (dghs)':
+        return Icons.local_hospital;
+      case 'traffic control (dhaka)':
+        return Icons.traffic;
+      case 'women and child helpline':
+        return Icons.family_restroom;
+      case 'railway inquiry':
+        return Icons.train;
+      case 'brta helpline':
+        return Icons.directions_bus;
+      default:
+        return Icons.phone; // fallback icon
+    }
   }
 }

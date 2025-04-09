@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:routeradar/widgets/customappbar.dart';
 
 class DriverInfo extends StatefulWidget {
   const DriverInfo({super.key});
@@ -98,10 +99,8 @@ class _DriverInfo extends State<DriverInfo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Driver Information"),
-        toolbarHeight: 100,
-        centerTitle: true,
+      appBar: CustomAppBar(
+        title: "Drivers Information",
       ),
       body: ListView.builder(
         itemCount: transportRoutes.length,

@@ -1,31 +1,23 @@
-// import 'dart:convert';
-// import 'dart:nativewrappers/_internal/vm/lib/ffi_native_type_patch.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
-// import 'package:flutter_polyline_points/flutter_polyline_points.dart';
-// import 'package:http/http.dart' as http;
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
-import 'package:routeradar/widgets/bnavbar.dart';
+import 'package:routeradar/widgets/customappbar.dart';
 
-class LiveTrackingPage extends StatefulWidget {
-  const LiveTrackingPage({super.key});
+class MyLocationPage extends StatefulWidget {
+  const MyLocationPage({super.key});
 
   @override
-  State<LiveTrackingPage> createState() => _LiveTrackingPageState();
+  State<MyLocationPage> createState() => _LiveTrackingPageState();
 }
 
-class _LiveTrackingPageState extends State<LiveTrackingPage> {
+class _LiveTrackingPageState extends State<MyLocationPage> {
   final MapController _mapController = MapController();
   final Location _location = Location();
-  // final TextEditingController _locationController = TextEditingController();
   // ignore: unused_field
   bool _isLoading = true;
-  // ignore: unused_field
-  LatLng? _currentLocation, _destination;
-  // List<LatLng> _routePoints = [];
+  LatLng? _currentLocation;
 
   void errorMessage(String s) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -77,6 +69,7 @@ class _LiveTrackingPageState extends State<LiveTrackingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(title: "My Location"),
       body: Stack(
         children: [
           FlutterMap(
@@ -120,7 +113,6 @@ class _LiveTrackingPageState extends State<LiveTrackingPage> {
         },
         child: const Icon(Icons.my_location),
       ),
-      bottomNavigationBar: CustomNavBar(),
     );
   }
 }

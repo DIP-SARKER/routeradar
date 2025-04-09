@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:routeradar/database.dart';
+import 'package:routeradar/widgets/customappbar.dart';
 
 class LostAndFound extends StatefulWidget {
   const LostAndFound({super.key});
@@ -9,29 +11,13 @@ class LostAndFound extends StatefulWidget {
 }
 
 class _LostAndFoundState extends State<LostAndFound> {
-  final List<Map<String, String>> items = [
-    {"item": "Black Backpack", "status": "Lost", "location": "DSC Bus Stop"},
-    {
-      "item": "Samsung Galaxy Phone",
-      "status": "Found",
-      "location": "Mirpur Bus"
-    },
-    {"item": "Silver Laptop", "status": "Lost", "location": "Rajlokkhi Bus"},
-    {
-      "item": "Red Water Bottle",
-      "status": "Lost",
-      "location": "Dhanmondi Route"
-    },
-    {"item": "Wallet", "status": "Lost", "location": "Rampura Bus"},
-  ];
+  final List<Map<String, String>> items = Database().lostAndFound;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Lost & Found"),
-        toolbarHeight: 100,
-        centerTitle: true,
+      appBar: CustomAppBar(
+        title: "Lost & Found",
       ),
       body: Column(
         children: [
@@ -47,17 +33,18 @@ class _LostAndFoundState extends State<LostAndFound> {
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.only( left: 30, right: 20, top: 10, bottom: 10),
+                    padding: const EdgeInsets.only(
+                        left: 30, right: 20, top: 10, bottom: 10),
                     child: Row(
                       children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Icon(
-                              items[index]["status"] == "Lost"
+                              items[index]["status"] == "lost"
                                   ? FontAwesome.triangle_exclamation_solid
                                   : FontAwesome.check_solid,
-                              color: items[index]["status"] == "Lost"
+                              color: items[index]["status"] == "lost"
                                   ? Colors.redAccent
                                   : const Color.fromARGB(255, 9, 141, 13),
                               size: 30,
@@ -66,7 +53,7 @@ class _LostAndFoundState extends State<LostAndFound> {
                             Text(
                               items[index]["status"]!,
                               style: TextStyle(
-                                color: items[index]["status"] == "Lost"
+                                color: items[index]["status"] == "lost"
                                     ? Colors.redAccent
                                     : const Color.fromARGB(255, 9, 141, 13),
                                 fontSize: 13,
@@ -101,7 +88,7 @@ class _LostAndFoundState extends State<LostAndFound> {
                           ),
                         ),
                         const SizedBox(width: 10),
-                        if (items[index]["status"] != "Lost")
+                        if (items[index]["status"] != "lost")
                           TextButton(
                             onPressed: () {
                               ScaffoldMessenger.of(context).showSnackBar(

@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+
+import 'package:routeradar/pages/profileeditpage.dart';
+import 'package:routeradar/widgets/bnavbar.dart';
+import 'package:routeradar/widgets/customappbar.dart';
 
 class ProfileSettingsPage extends StatefulWidget {
   const ProfileSettingsPage({super.key});
@@ -9,17 +16,27 @@ class ProfileSettingsPage extends StatefulWidget {
 }
 
 class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
+  File? _image;
+
+  Future<void> _pickImage() async {
+    final pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Profile & Settings"),
-        centerTitle: true,
-        toolbarHeight: 100,
-        elevation: 0,
+      appBar: CustomAppBar(
+        title: "Profile & Settings",
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 80),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -37,7 +54,9 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                       ),
                     ),
                     radius: 60,
-                    backgroundImage: AssetImage("assets/IMG.png"),
+                    backgroundImage: _image != null
+                        ? FileImage(_image!)
+                        : const AssetImage("assets/IMG.png") as ImageProvider,
                   ),
                   Positioned(
                     bottom: 0,
@@ -50,7 +69,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                       child: IconButton(
                         icon: Icon(FontAwesome.camera_retro_solid,
                             color: Colors.white),
-                        onPressed: () {},
+                        onPressed: _pickImage,
                       ),
                     ),
                   ),
@@ -68,7 +87,6 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
             ),
             const SizedBox(height: 30),
             _buildSettingTile(Icons.people_alt_outlined, "Edit Profile", () {}),
-            _buildSettingTile(Icons.lock_open, "Change Password", () {}),
             _buildSettingTile(
                 Icons.notifications_none_sharp, "Notification Settings", () {}),
             _buildSettingTile(
@@ -101,6 +119,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
           ],
         ),
       ),
+      bottomNavigationBar: CustomNavBar(),
     );
   }
 
@@ -111,9 +130,13 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
         title,
         style: const TextStyle(fontSize: 18),
       ),
-      trailing:
-          const Icon(Icons.arrow_forward_ios, size: 20, color: Colors.grey),
-      onTap: () {},
+      onTap: () {
+        Get.to(
+          () => EditProfilePage(),
+          transition: Transition.fade,
+          duration: Duration(milliseconds: 1300),
+        );
+      },
     );
   }
 }

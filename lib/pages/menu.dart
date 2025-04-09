@@ -1,20 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:routeradar/pages/balancepage.dart';
+import 'package:routeradar/pages/bookticketpage.dart';
 import 'package:routeradar/pages/driverinfo.dart';
 import 'package:routeradar/pages/emergency_contacts.dart';
 import 'package:routeradar/pages/feedback.dart';
 import 'package:routeradar/pages/live_tracking.dart';
 import 'package:routeradar/pages/lost_and_found.dart';
+import 'package:routeradar/pages/mylocation.dart';
 import 'package:routeradar/pages/profile_page.dart';
 import 'package:routeradar/pages/request_ride.dart';
 import 'package:routeradar/pages/routes_and_fare.dart';
 import 'package:routeradar/pages/schedule.dart';
 
-
-class MenuPage extends StatelessWidget {
+class MenuPage extends StatefulWidget {
   const MenuPage({super.key});
 
+  @override
+  State<MenuPage> createState() => _MenuPageState();
+}
+
+class _MenuPageState extends State<MenuPage> {
   Widget _buildSectionTitle(String title) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
@@ -28,6 +35,8 @@ class MenuPage extends StatelessWidget {
       ),
     );
   }
+
+  double _balance = 150.00;
 
   Widget _buildMenuItem(
       {required double iconSize,
@@ -57,10 +66,14 @@ class MenuPage extends StatelessWidget {
         toolbarHeight: 100,
         title: const Text(
           "Route-Radar",
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+              color: Color.fromARGB(255, 119, 82, 223)),
         ),
         centerTitle: true,
         elevation: 0,
+        iconTheme: IconThemeData(color: Color.fromARGB(255, 119, 82, 223)),
       ),
       body: ListView(
         children: [
@@ -130,6 +143,15 @@ class MenuPage extends StatelessWidget {
                   ),
                 ],
               ),
+              SizedBox(width: 70),
+              Text(
+                '৳ ${_balance.toStringAsFixed(2)}',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).primaryColor,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 20),
@@ -142,7 +164,7 @@ class MenuPage extends StatelessWidget {
               onTap: () {
                 Get.to(
                   () => Schedule(),
-                  transition: Transition.circularReveal,
+                  transition: Transition.leftToRightWithFade,
                   duration: Duration(milliseconds: 1300),
                 );
               }),
@@ -159,12 +181,34 @@ class MenuPage extends StatelessWidget {
               }),
           _buildMenuItem(
               iconSize: 35.0,
+              icon: Icons.my_location,
+              title: "My Location",
+              onTap: () {
+                Get.to(
+                  () => MyLocationPage(),
+                  transition: Transition.circularReveal,
+                  duration: Duration(milliseconds: 1300),
+                );
+              }),
+          _buildMenuItem(
+              iconSize: 35.0,
               icon: Icons.local_taxi,
               title: "Request a Ride",
               onTap: () {
                 Get.to(
                   () => RequestRidePage(),
-                  transition: Transition.circularReveal,
+                  transition: Transition.leftToRightWithFade,
+                  duration: Duration(milliseconds: 1300),
+                );
+              }),
+          _buildMenuItem(
+              iconSize: 35.0,
+              icon: Icons.confirmation_number,
+              title: "Book Tickets",
+              onTap: () {
+                Get.to(
+                  () => BookTicketPage(),
+                  transition: Transition.leftToRightWithFade,
                   duration: Duration(milliseconds: 1300),
                 );
               }),
@@ -175,7 +219,7 @@ class MenuPage extends StatelessWidget {
               onTap: () {
                 Get.to(
                   () => RoutesAndFares(),
-                  transition: Transition.circularReveal,
+                  transition: Transition.leftToRightWithFade,
                   duration: Duration(milliseconds: 1300),
                 );
               }),
@@ -188,7 +232,7 @@ class MenuPage extends StatelessWidget {
               onTap: () {
                 Get.to(
                   () => DriverInfo(),
-                  transition: Transition.circularReveal,
+                  transition: Transition.leftToRightWithFade,
                   duration: Duration(milliseconds: 1300),
                 );
               }),
@@ -199,20 +243,31 @@ class MenuPage extends StatelessWidget {
               onTap: () {
                 Get.to(
                   () => ProfileSettingsPage(),
-                  transition: Transition.circularReveal,
+                  transition: Transition.leftToRightWithFade,
+                  duration: Duration(milliseconds: 1300),
+                );
+              }),
+          _buildMenuItem(
+              iconSize: 28.0,
+              icon: FontAwesome.money_check_dollar_solid,
+              title: "Balance & Transactions",
+              onTap: () {
+                Get.to(
+                  () => BalancePage(),
+                  transition: Transition.leftToRightWithFade,
                   duration: Duration(milliseconds: 1300),
                 );
               }),
           const Divider(),
           _buildSectionTitle("Support & Assistance"),
           _buildMenuItem(
-              iconSize: 28.0,
+              iconSize: 26.0,
               icon: HeroIcons.phone_arrow_up_right,
               title: "Emergency Contacts",
               onTap: () {
                 Get.to(
                   () => EmergencyContactsPage(),
-                  transition: Transition.circularReveal,
+                  transition: Transition.leftToRightWithFade,
                   duration: Duration(milliseconds: 1300),
                 );
               }),
@@ -223,7 +278,7 @@ class MenuPage extends StatelessWidget {
               onTap: () {
                 Get.to(
                   () => LostAndFound(),
-                  transition: Transition.circularReveal,
+                  transition: Transition.leftToRightWithFade,
                   duration: Duration(milliseconds: 1300),
                 );
               }),
@@ -234,7 +289,7 @@ class MenuPage extends StatelessWidget {
               onTap: () {
                 Get.to(
                   () => FeedbackComplaintsPage(),
-                  transition: Transition.circularReveal,
+                  transition: Transition.leftToRightWithFade,
                   duration: Duration(milliseconds: 1300),
                 );
               }),
