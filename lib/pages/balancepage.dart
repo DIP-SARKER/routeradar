@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:routeradar/database.dart';
+import 'package:routeradar/database/database.dart';
 import 'package:routeradar/pages/menu.dart';
 
 class BalancePage extends StatefulWidget {
@@ -12,16 +12,31 @@ class BalancePage extends StatefulWidget {
 class _BalancePageState extends State<BalancePage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  double _balance = 150.00;
+  double _balance = 0.0;
 
   final _amountController = TextEditingController();
-  final List<Map<String, dynamic>> _transactions =
-      Database().transactionHistory;
+  final List<Map<String, dynamic>> _transactions = [
+    {"amount": 50.0, "type": "credit", "date": "2025-04-01"},
+    {"amount": 30.0, "type": "debit", "date": "2025-04-02"},
+    {"amount": 120.0, "type": "credit", "date": "2025-04-03"},
+    {"amount": 25.0, "type": "debit", "date": "2025-04-04"},
+    {"amount": 75.0, "type": "credit", "date": "2025-04-05"},
+    {"amount": 40.0, "type": "debit", "date": "2025-04-05"},
+    {"amount": 60.0, "type": "credit", "date": "2025-04-06"},
+    {"amount": 35.0, "type": "debit", "date": "2025-04-06"},
+    {"amount": 100.0, "type": "credit", "date": "2025-04-07"},
+    {"amount": 45.0, "type": "debit", "date": "2025-04-07"},
+  ];
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+    database.value.getUserinfo("balance").then((value) {
+      setState(() {
+        _balance = double.parse(value);
+      });
+    });
   }
 
   void _addBalance() {
@@ -29,6 +44,7 @@ class _BalancePageState extends State<BalancePage>
     if (amount != null && amount > 0) {
       setState(() {
         _balance += amount;
+        database.value.UpdateBalance(amount); //, "Credit", Timestamp.now()
         _transactions.insert(0, {
           'amount': amount,
           'type': 'Credit',
@@ -36,8 +52,27 @@ class _BalancePageState extends State<BalancePage>
         });
       });
       _amountController.clear();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Balance added successfully!')),
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Success",
+                style: TextStyle(
+                  color: Colors.green,
+                  fontSize: 20,
+                )),
+            content: Text("Balance added successfully!",
+                style: TextStyle(color: Colors.white, fontSize: 15)),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text("OK"),
+              ),
+            ],
+          );
+        },
       );
     }
   }

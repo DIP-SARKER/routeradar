@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:routeradar/pages/login_request_page.dart';
+import 'package:routeradar/database/authentication.dart';
+import 'package:routeradar/pages/homepage.dart';
+import 'package:routeradar/pages/login.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -11,12 +13,18 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreen extends State<SplashScreen> {
+
   @override
   void initState() {
     super.initState();
     Timer.periodic(Duration(seconds: 4), (timer) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => LoginRequestPage()));
+      if (authServices.value.getCurrentUserUID() == null) {
+        Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => LoginPage()));
+      } else {
+        Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => HomePage()));
+      }
     });
   }
 

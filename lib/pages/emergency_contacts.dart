@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:routeradar/database.dart';
+import 'package:routeradar/database/database.dart';
 import 'package:routeradar/widgets/customappbar.dart';
 
 class EmergencyContactsPage extends StatefulWidget {
@@ -10,8 +10,27 @@ class EmergencyContactsPage extends StatefulWidget {
 }
 
 class _EmergencyContactsPage extends State<EmergencyContactsPage> {
-  final List<Map<String, String>> emergencyContacts =
-      Database().emergencyContacts;
+  List<Map<String, String>> emergencyContacts = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchEmergencyContacts();
+  }
+
+  Future<void> _fetchEmergencyContacts() async {
+    final data = await database.value.getEmergencyContact();
+    if (mounted) {
+      setState(() {
+        emergencyContacts = List<Map<String, dynamic>>.from(data)
+            .map((e) => {
+                  'operator': e['operator'].toString(),
+                  'number': e['number'].toString(),
+                })
+            .toList();
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,14 +55,15 @@ class _EmergencyContactsPage extends State<EmergencyContactsPage> {
                 leading: Icon(
                   _getIcon(contact['operator']),
                   color: Colors.amber,
-                  size: 40,
+                  size: 35,
                 ),
                 title: Text(
                   contact['operator'] ?? 'Unknown',
                   style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold),
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 subtitle: Text(
                   contact['number'] ?? 'Unknown',
@@ -51,7 +71,8 @@ class _EmergencyContactsPage extends State<EmergencyContactsPage> {
                 ),
                 trailing: IconButton(
                   icon: Icon(Icons.call, color: Theme.of(context).primaryColor),
-                  onPressed: () {},
+                  onPressed: () {
+                  },
                 ),
               ),
             );
@@ -81,7 +102,7 @@ class _EmergencyContactsPage extends State<EmergencyContactsPage> {
       case 'brta helpline':
         return Icons.directions_bus;
       default:
-        return Icons.phone; // fallback icon
+        return Icons.phone;
     }
   }
 }

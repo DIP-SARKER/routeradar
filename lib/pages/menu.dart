@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:routeradar/database/database.dart';
 import 'package:routeradar/pages/balancepage.dart';
 import 'package:routeradar/pages/bookticketpage.dart';
 import 'package:routeradar/pages/driverinfo.dart';
@@ -36,7 +37,29 @@ class _MenuPageState extends State<MenuPage> {
     );
   }
 
-  double _balance = 150.00;
+  String _name = "";
+  String _id = "";
+  String _balance = "";
+
+  @override
+  void initState() {
+    super.initState();
+    database.value.getUserinfo("name").then((value) {
+      setState(() {
+        _name = value;
+      });
+    });
+    database.value.getUserinfo("id").then((value) {
+      setState(() {
+        _id = value;
+      });
+    });
+    database.value.getUserinfo("balance").then((value) {
+      setState(() {
+        _balance = value;
+      });
+    });
+  }
 
   Widget _buildMenuItem(
       {required double iconSize,
@@ -127,14 +150,14 @@ class _MenuPageState extends State<MenuPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "XX XXXX XXXX",
+                    _name,
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
-                    "221-15-XXXX",
+                    _id,
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
@@ -145,7 +168,7 @@ class _MenuPageState extends State<MenuPage> {
               ),
               SizedBox(width: 70),
               Text(
-                '৳ ${_balance.toStringAsFixed(2)}',
+                '৳ ${_balance}',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,

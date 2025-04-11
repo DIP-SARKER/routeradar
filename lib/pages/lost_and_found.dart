@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:routeradar/database.dart';
+import 'package:routeradar/database/database.dart';
 import 'package:routeradar/widgets/customappbar.dart';
 
 class LostAndFound extends StatefulWidget {
@@ -11,7 +11,28 @@ class LostAndFound extends StatefulWidget {
 }
 
 class _LostAndFoundState extends State<LostAndFound> {
-  final List<Map<String, String>> items = Database().lostAndFound;
+  List<Map<String, String>> items = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchEmergencyContacts();
+  }
+
+  Future<void> _fetchEmergencyContacts() async {
+    final data = await database.value.getLostFound();
+    if (mounted) {
+      setState(() {
+        items = List<Map<String, dynamic>>.from(data)
+            .map((e) => {
+                  'item': e['item'].toString(),
+                  'location': e['location'].toString(),
+                  'status': e['status'].toString(),
+                })
+            .toList();
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

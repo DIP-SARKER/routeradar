@@ -18,10 +18,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
       TextEditingController();
   final TextEditingController _newPasswordController = TextEditingController();
 
-  // Simulated current password (in real apps, never store passwords like this)
   String _storedPassword = 'mypassword123';
 
-  // Boolean flags to manage password visibility
   bool _isCurrentPasswordVisible = false;
   bool _isNewPasswordVisible = false;
 

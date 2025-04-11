@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "940653524616",
+    "project_id": "routeradar-5274",
+    "storage_bucket": "routeradar-5274.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:940653524616:android:c4486828ee698e5734513d",
+        "android_client_info": {
+          "package_name": "com.example.routeradar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDequlsmIsH8HLiXgsNDUMjgLZYW5htbdI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:routeradar/widgets/bnavbar.dart';
 import 'package:routeradar/widgets/customappbar.dart';
 
 class BookTicketPage extends StatefulWidget {
@@ -178,7 +177,6 @@ class _BookTicketPageState extends State<BookTicketPage>
           ),
         ),
       ),
-      bottomNavigationBar: CustomNavBar(),
     );
   }
 }

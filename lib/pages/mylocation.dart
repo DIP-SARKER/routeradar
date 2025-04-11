@@ -54,7 +54,7 @@ class _LiveTrackingPageState extends State<MyLocationPage> {
 
   Future<void> jumptoCurrentLocation() async {
     if (_currentLocation != null) {
-      _mapController.move(_currentLocation!, 10);
+      _mapController.move(_currentLocation!, 13);
     } else {
       errorMessage('Current location not available.');
     }

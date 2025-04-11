@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:lottie/lottie.dart';
-import 'package:routeradar/pages/login_request_page.dart';
+import 'package:routeradar/pages/login.dart';
 import 'package:routeradar/pages/signup.dart';
 
 class SignupRequestPage extends StatefulWidget {
@@ -185,7 +185,7 @@ class _SignupRequestPage extends State<SignupRequestPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => LoginRequestPage(),
+                        builder: (context) => LoginPage(),
                       ),
                     );
                   },
