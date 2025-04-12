@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:icons_plus/icons_plus.dart';
+import 'package:routeradar/database/authentication.dart';
+import 'package:routeradar/database/database.dart';
+import 'package:routeradar/pages/homepage.dart';
 
 class EditProfilePage extends StatefulWidget {
   @override
@@ -8,83 +12,107 @@ class EditProfilePage extends StatefulWidget {
 class _EditProfilePageState extends State<EditProfilePage> {
   final _formKey = GlobalKey<FormState>();
 
-  final TextEditingController _usernameController =
-      TextEditingController(text: 'John Doe');
-  final TextEditingController _phoneController =
-      TextEditingController(text: '01700000000');
-  final TextEditingController _studentIdController =
-      TextEditingController(text: '12345678');
-  final TextEditingController _currentPasswordController =
-      TextEditingController();
-  final TextEditingController _newPasswordController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _studentIdController = TextEditingController();
+  // final TextEditingController _currentPasswordController =
+  //     TextEditingController();
 
-  String _storedPassword = 'mypassword123';
+  // String _storedPassword = "";
+  // bool _isCurrentPasswordVisible = false;
 
-  bool _isCurrentPasswordVisible = false;
-  bool _isNewPasswordVisible = false;
+  @override
+  void initState() {
+    super.initState();
+    _loadUserInfo();
+  }
+
+  Future<void> _loadUserInfo() async {
+    // _storedPassword = authServices.value.globalPassword;
+    final name = await database.value.getUserinfo("name");
+    final id = await database.value.getUserinfo("id");
+    final phone = await database.value.getUserinfo("phone");
+
+    setState(() {
+      _usernameController.text = name;
+      _studentIdController.text = id;
+      _phoneController.text = phone;
+    });
+  }
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _phoneController.dispose();
+    _studentIdController.dispose();
+    // _currentPasswordController.dispose();
+    super.dispose();
+  }
 
   void _saveProfile() {
     if (_formKey.currentState!.validate()) {
-      if (_currentPasswordController.text.isNotEmpty ||
-          _newPasswordController.text.isNotEmpty) {
-        if (_currentPasswordController.text == _storedPassword) {
-          setState(() {
-            _storedPassword = _newPasswordController.text;
-          });
-          _showSnackBar('Profile & Password updated successfully');
-        } else {
-          _showSnackBar('Current password is incorrect');
-          return;
-        }
-      } else {
-        _showSnackBar('Profile updated successfully');
-      }
-
-      _currentPasswordController.clear();
-      _newPasswordController.clear();
-    }
-  }
-
-  void _showSnackBar(String message) {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(message)));
-  }
-
-  Widget _buildTextField({
-    required String label,
-    required TextEditingController controller,
-    required String validatorMsg,
-    IconData? icon,
-    bool isObscure = false,
-    TextInputType keyboardType = TextInputType.text,
-    bool isPasswordField = false,
-    bool isPasswordVisible = false,
-    VoidCallback? togglePasswordVisibility,
-  }) {
-    return TextFormField(
-      controller: controller,
-      obscureText: isObscure && !isPasswordVisible,
-      keyboardType: keyboardType,
-      decoration: InputDecoration(
-        prefixIcon: Icon(icon),
-        labelText: label,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-        suffixIcon: isPasswordField
-            ? IconButton(
-                icon: Icon(
-                  isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+      if (authServices.value.getCurrentUserUID() != null) {
+        database.value.updateUserInfo(
+          _usernameController.text,
+          _phoneController.text,
+          _studentIdController.text,
+        );
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Success",
+                  style: TextStyle(
+                    color: Colors.green,
+                    fontSize: 20,
+                  )),
+              content: Text("Profile updated successfully",
+                  style: TextStyle(color: Colors.white, fontSize: 15)),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).popUntil((route) => route.isFirst);
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => HomePage()),
+                    );
+                  },
+                  child: Text("OK"),
                 ),
-                onPressed: togglePasswordVisibility,
-              )
-            : null,
-      ),
-      validator: (value) {
-        if (validatorMsg.isNotEmpty && (value == null || value.isEmpty)) {
-          return validatorMsg;
-        }
-        return null;
-      },
-    );
+              ],
+            );
+          },
+        );
+      } else {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Failed!",
+                  style: TextStyle(
+                    color: Colors.red,
+                    fontSize: 20,
+                  )),
+              content: Text(
+                'An error occurred, Try again Later',
+                style: TextStyle(color: Colors.white, fontSize: 15),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text("Try Again"),
+                ),
+              ],
+            );
+          },
+        );
+      }
+      _usernameController.clear();
+      _phoneController.clear();
+      _studentIdController.clear();
+    }
   }
 
   @override
@@ -100,63 +128,82 @@ class _EditProfilePageState extends State<EditProfilePage> {
           key: _formKey,
           child: ListView(
             children: [
-              _buildTextField(
-                label: 'Username',
+              TextFormField(
                 controller: _usernameController,
-                validatorMsg: 'Please enter your username',
-                icon: Icons.person,
+                decoration: InputDecoration(
+                  labelText: 'Username',
+                  prefixIcon: Icon(
+                    FontAwesome.user_tie_solid,
+                    size: 20,
+                  ),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12)),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your username';
+                  }
+                  return null;
+                },
               ),
               SizedBox(height: 20),
-              _buildTextField(
-                label: 'Phone Number',
+              TextFormField(
                 controller: _phoneController,
-                validatorMsg: 'Please enter a valid phone number',
-                icon: Icons.phone,
                 keyboardType: TextInputType.phone,
+                decoration: InputDecoration(
+                  labelText: 'Phone Number',
+                  prefixIcon: Icon(Icons.phone),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12)),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a valid phone number';
+                  }
+                  return null;
+                },
               ),
               SizedBox(height: 20),
-              _buildTextField(
-                label: 'Student ID',
+              TextFormField(
                 controller: _studentIdController,
-                validatorMsg: 'Please enter your student ID',
-                icon: Icons.badge,
-              ),
-              SizedBox(height: 30),
-              Divider(),
-              Text(
-                'Change Password',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-              ),
-              SizedBox(height: 12),
-              _buildTextField(
-                label: 'Current Password',
-                controller: _currentPasswordController,
-                validatorMsg: '',
-                icon: Icons.lock_outline,
-                isObscure: true,
-                isPasswordField: true,
-                isPasswordVisible: _isCurrentPasswordVisible,
-                togglePasswordVisibility: () {
-                  setState(() {
-                    _isCurrentPasswordVisible = !_isCurrentPasswordVisible;
-                  });
+                decoration: InputDecoration(
+                  labelText: 'Student ID',
+                  prefixIcon: Icon(Icons.badge),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12)),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your student ID';
+                  }
+                  return null;
                 },
               ),
-              SizedBox(height: 16),
-              _buildTextField(
-                label: 'New Password',
-                controller: _newPasswordController,
-                validatorMsg: '',
-                icon: Icons.lock,
-                isObscure: true,
-                isPasswordField: true,
-                isPasswordVisible: _isNewPasswordVisible,
-                togglePasswordVisibility: () {
-                  setState(() {
-                    _isNewPasswordVisible = !_isNewPasswordVisible;
-                  });
-                },
-              ),
+              // SizedBox(height: 30),
+              // Divider(),
+              // SizedBox(height: 12),
+              // TextFormField(
+              //   controller: _currentPasswordController,
+              //   obscureText: !_isCurrentPasswordVisible,
+              //   decoration: InputDecoration(
+              //     labelText: 'Current Password',
+              //     prefixIcon: Icon(Icons.lock_outline),
+              //     border: OutlineInputBorder(
+              //         borderRadius: BorderRadius.circular(12)),
+              //     suffixIcon: IconButton(
+              //       icon: Icon(
+              //         _isCurrentPasswordVisible
+              //             ? Icons.visibility
+              //             : Icons.visibility_off,
+              //       ),
+              //       onPressed: () {
+              //         setState(() {
+              //           _isCurrentPasswordVisible = !_isCurrentPasswordVisible;
+              //         });
+              //       },
+              //     ),
+              //   ),
+              // ),
               SizedBox(height: 30),
               Center(
                 child: ElevatedButton.icon(

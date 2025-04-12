@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:icons_plus/icons_plus.dart';
+import 'package:routeradar/database/database.dart';
 import 'package:routeradar/widgets/customappbar.dart';
 
 class BookTicketPage extends StatefulWidget {
@@ -12,11 +12,19 @@ class _BookTicketPageState extends State<BookTicketPage>
     with SingleTickerProviderStateMixin {
   final TextEditingController _busCodeController = TextEditingController();
   DateTime? _selectedDate;
-  TimeOfDay? _selectedTime;
+  String? _selectedBus;
 
   double _progress = 0.0;
   Timer? _timer;
-  final double _holdDuration = 2.0; // seconds
+  final double _holdDuration = 2.0;
+
+  late Future<List<Map<String, dynamic>>> _busInfoFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _busInfoFuture = database.value.getBusInfo();
+  }
 
   void _startHoldProgress() {
     _timer?.cancel();
@@ -40,27 +48,44 @@ class _BookTicketPageState extends State<BookTicketPage>
     });
   }
 
-  void _confirmTicket() {
+  Future<void> confirmPurchase() async {
+    final buses = await _busInfoFuture;
+    final selectedBusInfo = _getSelectedBusInfo(buses);
+    final fare = selectedBusInfo?['fare'] ?? 0;
+
+    database.value.UpdateBalance(-fare);
+  }
+
+  void _confirmTicket() async {
+    await confirmPurchase();
+
     showDialog(
       context: context,
-      builder: (_) => AlertDialog(
-        title: Text("Ticket Confirmed"),
-        content: Text("Your ticket has been successfully booked!"),
-        actions: [
-          TextButton(
-            child: Text("OK"),
-            onPressed: () {
-              Navigator.pop(context);
-              setState(() {
-                _busCodeController.clear();
-                _selectedDate = null;
-                _selectedTime = null;
-                _progress = 0.0;
-              });
-            },
-          )
-        ],
-      ),
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Ticket Confirmed",
+              style: TextStyle(
+                color: Colors.green,
+                fontSize: 20,
+              )),
+          content: Text("Your ticket has been successfully booked!",
+              style: TextStyle(color: Colors.white, fontSize: 15)),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                setState(() {
+                  _busCodeController.clear();
+                  _selectedDate = null;
+                  _selectedBus = null;
+                  _progress = 0.0;
+                });
+              },
+              child: Text("OK"),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -74,14 +99,6 @@ class _BookTicketPageState extends State<BookTicketPage>
     if (date != null) setState(() => _selectedDate = date);
   }
 
-  Future<void> _pickTime() async {
-    final time = await showTimePicker(
-      context: context,
-      initialTime: _selectedTime ?? TimeOfDay.now(),
-    );
-    if (time != null) setState(() => _selectedTime = time);
-  }
-
   @override
   void dispose() {
     _timer?.cancel();
@@ -91,8 +108,13 @@ class _BookTicketPageState extends State<BookTicketPage>
 
   String _formatDate(DateTime? date) =>
       date == null ? "Pick Date" : "${date.year}-${date.month}-${date.day}";
-  String _formatTime(TimeOfDay? time) =>
-      time == null ? "Pick Time" : time.format(context);
+
+  Map<String, dynamic>? _getSelectedBusInfo(List<Map<String, dynamic>> buses) {
+    return buses.firstWhere(
+      (bus) => bus['bus'] == _selectedBus,
+      orElse: () => {},
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -104,22 +126,74 @@ class _BookTicketPageState extends State<BookTicketPage>
           child: Column(
             children: [
               SizedBox(height: 50),
-              TextField(
-                cursorColor: Theme.of(context).primaryColor,
-                controller: _busCodeController,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  labelText: "Bus Code",
-                  labelStyle: TextStyle(color: Theme.of(context).primaryColor),
-                  hintText: "Enter Bus Code",
-                  hintStyle: TextStyle(color: Colors.grey),
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(
-                    FontAwesome.bus_solid,
-                    size: 20,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                ),
+              FutureBuilder<List<Map<String, dynamic>>>(
+                future: _busInfoFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    return Text("Error loading bus info");
+                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return Text("No buses available");
+                  }
+
+                  final buses = snapshot.data!;
+                  final selectedBusInfo = _getSelectedBusInfo(buses);
+
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      DropdownButtonFormField<String>(
+                        decoration: InputDecoration(
+                          labelText: "Select Bus",
+                          helperStyle: TextStyle(color: Colors.grey),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        value: _selectedBus,
+                        items: buses.map((bus) {
+                          final busName = bus['bus'];
+                          return DropdownMenuItem<String>(
+                            value: busName,
+                            child: Text(busName,
+                                style: TextStyle(
+                                    color: Theme.of(context).primaryColor)),
+                          );
+                        }).toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedBus = value;
+                          });
+                        },
+                      ),
+                      if (_selectedBus != null && selectedBusInfo != null) ...[
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: 10),
+                              Text(
+                                "Route: ${selectedBusInfo['startPoint']} to ${selectedBusInfo['endPoint']}",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: Theme.of(context).primaryColor),
+                              ),
+                              SizedBox(height: 5),
+                              Text(
+                                "Fare: ৳ ${selectedBusInfo['fare']?.toStringAsFixed(2) ?? 'N/A'}",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: Theme.of(context).primaryColor),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ],
+                  );
+                },
               ),
               SizedBox(height: 15),
               ListTile(
@@ -130,15 +204,6 @@ class _BookTicketPageState extends State<BookTicketPage>
                 leading: Icon(Icons.calendar_today,
                     color: Theme.of(context).primaryColor),
                 onTap: _pickDate,
-              ),
-              ListTile(
-                title: Text(
-                  _formatTime(_selectedTime),
-                  style: TextStyle(color: Theme.of(context).primaryColor),
-                ),
-                leading: Icon(Icons.access_time,
-                    color: Theme.of(context).primaryColor),
-                onTap: _pickTime,
               ),
               SizedBox(height: 300),
               GestureDetector(

@@ -12,6 +12,8 @@ class AuthenticationServices {
 
   Stream<User?> get authStateChanges => firebaseAuth.authStateChanges();
 
+  String globalPassword = '';
+
   String? getCurrentUserUID() {
     return currentUser?.uid;
   }
@@ -20,12 +22,12 @@ class AuthenticationServices {
     required String email,
     required String password,
   }) async {
+    globalPassword = password;
     return await firebaseAuth.signInWithEmailAndPassword(
       email: email,
       password: password,
     );
   }
-
 
   Future<UserCredential> createAccount({
     required String email,

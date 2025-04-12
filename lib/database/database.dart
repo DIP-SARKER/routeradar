@@ -46,6 +46,25 @@ class Database {
     }
   }
 
+  Future<void> updateUserInfo(String name, String phone, String id) async {
+    if (name.isEmpty && phone.isEmpty && id.isEmpty) {
+      return;
+    }
+
+    Map<String, dynamic> updateData = {};
+    if (name.isNotEmpty) {
+      updateData['name'] = name;
+    }
+    if (phone.isNotEmpty) {
+      updateData['phone'] = phone;
+    }
+    if (id.isNotEmpty) {
+      updateData['id'] = id;
+    }
+    updateData['updatedOn'] = Timestamp.now();
+    await _users.doc(uid).update(updateData);
+  }
+
   Future<String> getUserinfo(String info) async {
     DocumentSnapshot doc =
         await _users.doc(authServices.value.getCurrentUserUID()).get();

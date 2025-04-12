@@ -58,7 +58,9 @@ class _FeedbackComplaintsPageState extends State<FeedbackComplaintsPage> {
                 items: _complaintTypes.map((type) {
                   return DropdownMenuItem<String>(
                     value: type,
-                    child: Text(type),
+                    child: Text(type,
+                        style:
+                            TextStyle(color: Theme.of(context).primaryColor)),
                   );
                 }).toList(),
                 onChanged: (value) {

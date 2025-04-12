@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:lottie/lottie.dart';
 import 'package:routeradar/database/authentication.dart';
-import 'package:routeradar/database/database.dart';
 import 'package:routeradar/pages/homepage.dart';
 import 'package:routeradar/pages/signup_request_page.dart';
 
@@ -149,7 +148,7 @@ class _LoginPageState extends State<LoginPage> {
                       fontSize: 20,
                     )),
                 content: Text(
-                    "Successfully logged in as ${database.value.getUserinfo("name")}.",
+                    "Successfully logged in.",
                     style: TextStyle(color: Colors.white, fontSize: 15)),
                 actions: [
                   TextButton(
