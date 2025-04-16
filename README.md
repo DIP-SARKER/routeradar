@@ -46,8 +46,8 @@
 ---
 
 ## Demo Video 🎥  
-[![Watch Demo](https://img.youtube.com/shorts/auQmYx2tscA/0.jpg)]([https://youtube.com/VIDEO_LINK_HERE](https://youtube.com/shorts/auQmYx2tscA?feature=share))  
-*(Replace with your video link)*
+[![Watch Demo](https://img.youtube.com/shorts/auQmYx2tscA/0.jpg)]())  
+*([https://youtube.com/shorts/auQmYx2tscA?feature=share])*
 
 ---
 
