@@ -25,6 +25,10 @@ class Database {
     "lostfound",
   );
 
+  final CollectionReference _feedbacks = FirebaseFirestore.instance.collection(
+    "feedback",
+  );
+
   String? uid = authServices.value.getCurrentUserUID();
 
   Future<void> addUser(TextEditingController name, TextEditingController email,
@@ -174,6 +178,12 @@ class Database {
   //   });
   // }
 
+  Future<void> updateLostFoundStatus(String docId) async {
+    await _lostandfound.doc(docId).update({
+      'claimedby': authServices.value.getCurrentUserUID(),
+    });
+  }
+
   Future<List<Map<String, String>>> getLostFound() async {
     QuerySnapshot querySnapshot = await _lostandfound.get();
     return querySnapshot.docs.map((doc) {
@@ -184,5 +194,18 @@ class Database {
         'status': data['Status'].toString(),
       };
     }).toList();
+  }
+
+  Future<void> addFeedback({
+    required String type,
+    required String description,
+  }) async {
+    await _feedbacks.add({
+      'type': type,
+      'description': description,
+      'status': 'pending',
+      'createdOn': Timestamp.now(),
+      'uid': authServices.value.getCurrentUserUID()
+    });
   }
 }

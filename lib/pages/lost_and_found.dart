@@ -16,10 +16,10 @@ class _LostAndFoundState extends State<LostAndFound> {
   @override
   void initState() {
     super.initState();
-    _fetchEmergencyContacts();
+    _fetchLostFoundItem();
   }
 
-  Future<void> _fetchEmergencyContacts() async {
+  Future<void> _fetchLostFoundItem() async {
     final data = await database.value.getLostFound();
     if (mounted) {
       setState(() {
@@ -33,6 +33,13 @@ class _LostAndFoundState extends State<LostAndFound> {
       });
     }
   }
+
+  // Future<void> _claimItem(String item) async {
+  //   final data = await database.value.getLostFound();
+  //   final docId = data.firstWhere((e) => e['item'] == item)['item'];
+  //   await database.value.updateLostFoundStatus(docId!);
+  //   _fetchLostFoundItem();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -109,9 +116,11 @@ class _LostAndFoundState extends State<LostAndFound> {
                           ),
                         ),
                         const SizedBox(width: 10),
-                        if (items[index]["status"] != "lost")
+                        if (items[index]["status"] != "lost" &&
+                            items[index]["claimedby"] == null)
                           TextButton(
                             onPressed: () {
+                              // _claimItem(items[index]["item"]!);
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(

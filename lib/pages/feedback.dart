@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:routeradar/database/database.dart';
 import 'package:routeradar/widgets/customappbar.dart';
 
 class FeedbackComplaintsPage extends StatefulWidget {
@@ -18,6 +19,15 @@ class _FeedbackComplaintsPageState extends State<FeedbackComplaintsPage> {
     'Payment Problem',
     'Other'
   ];
+
+  void _submitFeedback({
+    required String complaintType,
+    required String feedback,
+  }) {
+    database.value.addFeedback(
+       type: complaintType, description: feedback
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,6 +121,10 @@ class _FeedbackComplaintsPageState extends State<FeedbackComplaintsPage> {
                       );
                     } else {
                       // Submit feedback logic can go here
+                      _submitFeedback(
+                        complaintType: _complaintType!,
+                        feedback: feedback,
+                      );
                       showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
