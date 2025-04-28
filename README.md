@@ -47,7 +47,7 @@
 
 ## Demo Video 🎥  
 [![Watch Demo](https://img.youtube.com/shorts/auQmYx2tscA/0.jpg)]())  
-*([https://youtube.com/shorts/auQmYx2tscA?feature=share])*
+([https://youtube.com/shorts/auQmYx2tscA?feature=share])
 
 ---
 
@@ -58,8 +58,7 @@
 ---
 
 ## Project Report 📄  
-[View Full Report](https://drive.google.com/drive/folders/1uvSDjCXYpZEc6p1YO88rKTkFbxoBma_R?usp=drive_link)  
-*(Link to PDF/documentation)*
+[View Full Report]([https://drive.google.com/drive/folders/1uvSDjCXYpZEc6p1YO88rKTkFbxoBma_R?usp=drive_link](https://drive.google.com/file/d/1d7FGWOGPQW2nrZADiGciF6J-F3xW8Wmi/view?usp=sharing)) 
 
 ---
 
