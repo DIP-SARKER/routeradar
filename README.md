@@ -38,27 +38,26 @@
 
 | | | |
 |:-------------------------:|:-------------------------:|:-------------------------:|
-| ![Login Screen](https://drive.google.com/file/d/1dGTnhNQL2ZGid-GAQ_Jjg-YVUKmspfrs/view?usp=drive_link) | ![Home Screen](https://drive.google.com/file/d/1j_BzZXVlIEfO-Px-UtHYFSTmgUecsyNX/view?usp=drive_link) | ![Booking Screen](https://drive.google.com/file/d/1KBAsgwVcpVK_fEJ9JnlemdtwEk8gycBX/view?usp=drive_link) |
+| ![Login Screen](screenshots/login.png) | ![Home Screen](screenshots/home.png) | ![Booking Screen](screenshots/book.png) |
 | **Login Screen** | **Home Dashboard** | **Ride Booking** |
-| ![Tracking Screen](https://drive.google.com/file/d/1PK0j__W0lTIgy2Np8n7ctNO_QrTiyduB/view?usp=drive_link) | ![Wallet Screen](https://drive.google.com/file/d/1qj7D_lA3dRPe1OptPyWT3WMdCAQT3NRB/view?usp=drive_link) | ![Profile Screen](https://drive.google.com/file/d/1qiKsFqeZIRnDm-iHlhRVi6FLYXy79dEs/view?usp=drive_link) |
+| ![Tracking Screen](screenshots/map.png) | ![Wallet Screen](screenshots/wallet.png) | ![Profile Screen](screenshots/profile.png) |
 | **Real-Time Tracking** | **Wallet Management** | **User Profile** |
+
 
 ---
 
 ## Demo Video 🎥  
-[![Watch Demo](https://img.youtube.com/shorts/auQmYx2tscA/0.jpg)]())  
 ([https://youtube.com/shorts/auQmYx2tscA?feature=share])
 
 ---
 
 ## Download APK 📲  
 [Download Latest Release](https://github.com/yourusername/RouteRadar/releases/latest/download/app-release.apk)  
-*(Upload APK to GitHub Releases and update link)*
 
 ---
 
 ## Project Report 📄  
-[View Full Report]([https://drive.google.com/drive/folders/1uvSDjCXYpZEc6p1YO88rKTkFbxoBma_R?usp=drive_link](https://drive.google.com/file/d/1d7FGWOGPQW2nrZADiGciF6J-F3xW8Wmi/view?usp=sharing)) 
+[View Full Report]([https://drive.google.com/file/d/1d7FGWOGPQW2nrZADiGciF6J-F3xW8Wmi/view?usp=sharing]) 
 
 ---
 
