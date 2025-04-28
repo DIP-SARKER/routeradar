@@ -47,17 +47,17 @@
 ---
 
 ## Demo Video 🎥  
-([https://youtube.com/shorts/auQmYx2tscA?feature=share])
+[Video](https://youtube.com/shorts/auQmYx2tscA?feature=share)
 
 ---
 
 ## Download APK 📲  
-[Download Latest Release](https://github.com/yourusername/RouteRadar/releases/latest/download/app-release.apk)  
+[Download Latest Release](https://github.com/DIP-SARKER/routeradar/releases/tag/v1.0.0)  
 
 ---
 
 ## Project Report 📄  
-[View Full Report]([https://drive.google.com/file/d/1d7FGWOGPQW2nrZADiGciF6J-F3xW8Wmi/view?usp=sharing]) 
+[View Full Report](https://drive.google.com/file/d/1d7FGWOGPQW2nrZADiGciF6J-F3xW8Wmi/view?usp=sharing) 
 
 ---
 
